@@ -3,51 +3,623 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#0a2e44">
-    <meta name="apple-mobile-web-app-capable" content="yes">
     <title>AUDIT - SIP SYSTEM</title>
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #e8edf5;
+            color: #1e293b;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .app-container {
+            max-width: 420px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+            min-height: 680px;
+            max-height: 96vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== HEADER ===== */
+        .app-header {
+            background: linear-gradient(135deg, #0a2e44 0%, #1a5a7a 100%);
+            padding: 18px 20px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo-sip {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 16px;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            letter-spacing: -0.5px;
+            position: relative;
+        }
+
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            right: -3px;
+            width: 10px;
+            height: 10px;
+            background: #22c55e;
+            border-radius: 50%;
+            border: 2px solid #0a2e44;
+        }
+
+        .logo-text {
+            color: white;
+            line-height: 1.15;
+        }
+
+        .logo-text .sip {
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-text .system {
+            font-weight: 300;
+            font-size: 0.6rem;
+            opacity: 0.75;
+            display: block;
+            letter-spacing: 2px;
+        }
+
+        .app-title {
+            color: white;
+            font-weight: 700;
+            font-size: 1.4rem;
+            letter-spacing: -0.5px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 4px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .app-title small {
+            font-weight: 300;
+            font-size: 0.45rem;
+            opacity: 0.6;
+            display: block;
+            letter-spacing: 1px;
+        }
+
+        /* ===== BODY ===== */
+        .app-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 14px 16px 10px;
+            background: #f8faff;
+        }
+
+        .app-body::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .app-body::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        /* ===== SELECTOR IDIOMA ===== */
+        .idioma-selector {
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 8px 14px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .idioma-selector label {
+            font-weight: 600;
+            color: #0b3b5c;
+            font-size: 0.75rem;
+            white-space: nowrap;
+        }
+
+        .idioma-selector select {
+            flex: 1;
+            padding: 6px 10px;
+            border: 2px solid #b9d5fd;
+            border-radius: 8px;
+            background: white;
+            font-size: 0.8rem;
+            color: #1e293b;
+            cursor: pointer;
+            outline: none;
+            min-width: 100px;
+        }
+
+        .idioma-selector select:focus {
+            border-color: #2563eb;
+        }
+
+        /* ===== DISCLAIMER ===== */
+        .disclaimer {
+            background: #fef9e7;
+            border-left: 4px solid #d97706;
+            padding: 8px 12px;
+            margin-bottom: 12px;
+            font-size: 0.7rem;
+            border-radius: 6px;
+            color: #7c4a1a;
+            line-height: 1.4;
+        }
+
+        .disclaimer strong {
+            color: #92400e;
+        }
+
+        /* ===== PROGRESO ===== */
+        .progreso {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding: 6px 12px;
+            background: #f8fafc;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .progreso .contador {
+            font-weight: 700;
+            color: #0b3b5c;
+            font-size: 0.75rem;
+            min-width: 85px;
+        }
+
+        .progreso .barra-container {
+            flex: 1;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progreso .barra {
+            height: 100%;
+            background: linear-gradient(90deg, #2563eb, #1e4a7a);
+            border-radius: 10px;
+            transition: width 0.4s ease;
+            width: 0%;
+        }
+
+        .progreso .pregunta-num {
+            font-weight: 600;
+            color: #475569;
+            font-size: 0.7rem;
+            min-width: 32px;
+            text-align: right;
+        }
+
+        /* ===== GUÍA ===== */
+        .guia-trago {
+            background: #eef6ff;
+            border: 1px solid #b9d5fd;
+            padding: 8px 12px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            color: #0b3b5c;
+        }
+
+        .guia-trago strong {
+            color: #1e4a7a;
+        }
+
+        /* ===== PREGUNTAS ===== */
+        .pregunta-container {
+            min-height: 200px;
+        }
+
+        .pregunta {
+            display: none;
+            padding: 14px 14px;
+            background: white;
+            border-radius: 12px;
+            border: 2px solid #e9edf2;
+            animation: fadeIn 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .pregunta.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pregunta .p-label {
+            font-weight: 700;
+            color: #0b3b5c;
+            font-size: 0.7rem;
+            margin-bottom: 2px;
+            opacity: 0.6;
+        }
+
+        .pregunta p {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #0f2b44;
+            font-size: 0.92rem;
+            line-height: 1.4;
+        }
+
+        .pregunta .contexto-cultural {
+            background: #f0fdf4;
+            border-left: 4px solid #22c55e;
+            padding: 5px 10px;
+            margin-bottom: 10px;
+            font-size: 0.7rem;
+            color: #166534;
+            border-radius: 6px;
+            font-style: italic;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 12px;
+            margin: 3px 0;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.15s;
+            font-weight: 450;
+            color: #1f2a44;
+            background: #fafcff;
+            border: 1.5px solid transparent;
+            font-size: 0.85rem;
+        }
+
+        label:hover {
+            background: #e9effa;
+            border-color: #cbd9ed;
+        }
+
+        label.selected {
+            background: #dbeafe;
+            border-color: #2563eb;
+        }
+
+        input[type="radio"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #2563eb;
+            flex-shrink: 0;
+            margin: 0;
+        }
+
+        /* ===== NAVEGACIÓN ===== */
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            padding-bottom: 2px;
+        }
+
+        .nav-buttons button {
+            padding: 9px 16px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex: 1;
+        }
+
+        .nav-buttons .btn-prev {
+            background: #e2e8f0;
+            color: #1e293b;
+            flex: 0.6;
+        }
+
+        .nav-buttons .btn-prev:hover:not(:disabled) {
+            background: #cbd5e1;
+        }
+
+        .nav-buttons .btn-next {
+            background: #1e4a7a;
+            color: white;
+            box-shadow: 0 4px 12px rgba(30, 74, 122, 0.2);
+        }
+
+        .nav-buttons .btn-next:hover:not(:disabled) {
+            background: #14375e;
+        }
+
+        .nav-buttons .btn-next:disabled,
+        .nav-buttons .btn-prev:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        .nav-buttons .btn-calcular {
+            background: #d97706;
+            color: white;
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25);
+        }
+
+        .nav-buttons .btn-calcular:hover:not(:disabled) {
+            background: #b45309;
+        }
+
+        .nav-buttons .btn-calcular:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* ===== RESULTADO ===== */
+        .resultado {
+            display: none;
+            margin-top: 14px;
+            padding: 16px 14px;
+            border-radius: 14px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid transparent;
+        }
+
+        .resultado.show {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .bajo-riesgo {
+            background: #d1fae5;
+            color: #065f46;
+            border-color: #34d399;
+        }
+
+        .riesgo-medio {
+            background: #ffedd5;
+            color: #9a3412;
+            border-color: #fb923c;
+        }
+
+        .riesgo-alto {
+            background: #fee2e2;
+            color: #991b1b;
+            border-color: #f87171;
+        }
+
+        .dependencia {
+            background: #fce4ec;
+            color: #7f1d1d;
+            border-color: #ef5350;
+        }
+
+        .consejos {
+            margin-top: 8px;
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 8px;
+            font-size: 0.75rem;
+            text-align: left;
+            font-weight: 400;
+        }
+
+        .consejos ul {
+            margin: 3px 0 0 16px;
+        }
+
+        .consejos ul li {
+            margin-bottom: 1px;
+        }
+
+        .nota-corte {
+            margin-top: 8px;
+            font-size: 0.65rem;
+            background: rgba(255,255,255,0.4);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 400;
+        }
+
+        /* ===== FOOTER ===== */
+        .app-footer {
+            background: #f8fafc;
+            padding: 10px 16px 12px;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+            font-size: 0.55rem;
+            color: #94a3b8;
+            flex-shrink: 0;
+            line-height: 1.6;
+        }
+
+        .app-footer strong {
+            color: #1e4a7a;
+        }
+
+        .app-footer .version {
+            color: #cbd5e1;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 440px) {
+            body { padding: 4px; }
+            .app-container {
+                border-radius: 20px;
+                min-height: 580px;
+                max-height: 99vh;
+            }
+            .app-header {
+                padding: 12px 14px 10px;
+            }
+            .logo-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 13px;
+            }
+            .logo-text .sip { font-size: 0.95rem; }
+            .logo-text .system { font-size: 0.5rem; }
+            .app-title { font-size: 1.1rem; padding: 2px 12px; }
+            .app-title small { font-size: 0.4rem; }
+            .app-body { padding: 10px 10px 6px; }
+            .pregunta { padding: 10px 10px; }
+            .pregunta p { font-size: 0.85rem; }
+            label { font-size: 0.8rem; padding: 5px 10px; }
+            .nav-buttons button { font-size: 0.72rem; padding: 7px 10px; }
+        }
+
+        @media (max-width: 360px) {
+            .app-container { border-radius: 16px; }
+            .app-header { padding: 8px 10px 6px; }
+            .logo-icon { width: 28px; height: 28px; font-size: 10px; }
+            .logo-text .sip { font-size: 0.75rem; }
+            .app-title { font-size: 0.9rem; padding: 2px 8px; }
+            .app-body { padding: 6px 6px 4px; }
+            .pregunta p { font-size: 0.78rem; }
+            label { font-size: 0.72rem; padding: 4px 8px; }
+            .idioma-selector select { font-size: 0.7rem; padding: 4px 6px; min-width: 70px; }
+            .progreso .contador { font-size: 0.6rem; min-width: 55px; }
+            .nav-buttons button { font-size: 0.6rem; padding: 5px 6px; }
+        }
+    </style>
 </head>
 <body>
+
 <div class="app-container">
-    <header class="app-header">
+    <!-- HEADER -->
+    <div class="app-header">
         <div class="logo-sip">
-            <img src="logo-sidebar.png" alt="SIP SYSTEM" class="logo-img" onerror="this.style.display='none'">
+            <div class="logo-icon">SIP</div>
             <div class="logo-text">
                 <span class="sip">SIP</span>
                 <span class="system">SYSTEM</span>
             </div>
         </div>
-        <div class="app-title">AUDIT <small>OMS · 2001</small></div>
-    </header>
-    <main class="app-body">
-        <div class="disclaimer"><strong>⚕️ Aviso:</strong> Tamizaje preventivo. Los resultados <strong>NO</strong> son diagnóstico médico.</div>
+        <div class="app-title">
+            AUDIT
+            <small>OMS · 2001</small>
+        </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="app-body">
+        <!-- Idioma -->
+        <div class="idioma-selector">
+            <label for="idiomaSelect">🌍 Idioma:</label>
+            <select id="idiomaSelect" onchange="cambiarIdioma()">
+                <option value="es">🇪🇸 Español</option>
+                <option value="qu">🏔️ Quechua</option>
+                <option value="ay">🏔️ Aymara</option>
+                <option value="con">🌳 Conihua</option>
+                <option value="ship">🌳 Shipibo</option>
+            </select>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="disclaimer">
+            <strong>⚕️ Aviso:</strong> Tamizaje preventivo. Los resultados <strong>NO</strong> son diagnóstico médico.
+        </div>
+
+        <!-- Progreso -->
         <div class="progreso">
             <span class="contador" id="contadorPregunta">Pregunta 1/10</span>
-            <div class="barra-container"><div class="barra" id="barraProgreso"></div></div>
+            <div class="barra-container">
+                <div class="barra" id="barraProgreso"></div>
+            </div>
             <span class="pregunta-num" id="textoProgreso">0%</span>
         </div>
-        <div class="guia-trago"><strong>🥃 Referencia:</strong> 1 trago = 10g alcohol</div>
+
+        <!-- Guía -->
+        <div class="guia-trago" id="guiaTrago">
+            <strong>🥃 Referencia:</strong> <span id="textoTrago">1 trago = 10g alcohol</span>
+        </div>
+
+        <!-- Preguntas -->
         <div class="pregunta-container" id="preguntaContainer"></div>
+
+        <!-- Navegación -->
         <div class="nav-buttons">
             <button class="btn-prev" id="btnPrev" onclick="cambiarPregunta(-1)">← Anterior</button>
             <button class="btn-next" id="btnNext" onclick="cambiarPregunta(1)">Siguiente →</button>
             <button class="btn-calcular" id="btnCalcular" onclick="calcularAudit()" style="display:none;">📊 Resultado</button>
         </div>
+
+        <!-- Resultado -->
         <div id="resultadoBox" class="resultado"></div>
-    </main>
-    <footer class="app-footer">
+    </div>
+
+    <!-- FOOTER -->
+    <div class="app-footer">
         <strong>© 2026 SIP SYSTEM INTELLIGENCE PLATFORM</strong><br>
-        Basado en manual OMS (2001) <span class="version">· v2.0</span>
-    </footer>
+        Basado en manual OMS (2001) · Adaptación: Quechua, Aymara, Conihua, Shipibo
+        <span class="version"> · v2.0</span>
+    </div>
 </div>
-<script src="data.js"></script>
-<script src="app.js"></script>
-</body>
-</html>
+
+<script>
+    // ================================================================
+    // TODAS LAS PREGUNTAS - COMPLETAS EN 5 IDIOMAS
+    // ================================================================
+    const idiomas = {
+        es: {
+            nombre: 'Español',
+            trago: '1 trago = 10g alcohol (cerveza 330ml, vino 140ml, destilado 40ml)',
+            preguntas: [
+                { texto: '¿Con qué frecuencia consume alguna bebida alcohólica?', contexto: '', opciones: ['Nunca', '1 o menos veces al mes', 'De 2 a 4 veces al mes', 'De 2 a 3 veces por semana', '4 o más veces por semana'] },
+                { texto: '¿Cuántos tragos estándar suele tomar en un día de consumo normal?', contexto: '', opciones: ['1 o 2', '3 o 4', '5 o 6', 'De 7 a 9', '10 o más'] },
+                { texto: '¿Con qué frecuencia toma 6 o más tragos estándar en una sola ocasión?', contexto: '', opciones: ['Nunca', 'Menos de una vez al mes', 'Mensualmente', 'Semanalmente', 'A diario o casi a diario'] },
+                { texto: 'En el último año, ¿con qué frecuencia no pudo parar de beber una vez que había empezado?', contexto: '', opciones: ['Nunca', 'Menos de una vez al mes', 'Mensualmente', 'Semanalmente', 'A diario o casi a diario'] },
+                { texto: 'En el último año, ¿con qué frecuencia no pudo hacer lo que se esperaba de usted debido a la bebida?', contexto: '', opciones: ['Nunca', 'Menos de una vez al mes', 'Mensualmente', 'Semanalmente', 'A diario o casi a diario'] },
+                { texto: 'En el último año, ¿con qué frecuencia necesitó beber en ayunas para recuperarse después de haber bebido mucho?', contexto: '', opciones: ['Nunca', 'Menos de una vez al mes', 'Mensualmente', 'Semanalmente', 'A diario o casi a diario'] },
+                { texto: 'En el último año, ¿con qué frecuencia ha tenido remordimientos o culpa después de beber?', contexto: '', opciones: ['Nunca', 'Menos de una vez al mes', 'Mensualmente', 'Semanalmente', 'A diario o casi a diario'] },
+                { texto: 'En el último año, ¿con qué frecuencia no ha recordado lo que pasó porque había bebido?', contexto: '', opciones: ['Nunca', 'Menos de una vez al mes', 'Mensualmente', 'Semanalmente', 'A diario o casi a diario'] },
+                { texto: '¿Usted o alguien más ha resultado herido debido a su consumo de alcohol?', contexto: '', opciones: ['No', 'Sí, pero no en el último año', 'Sí, durante el último año'] },
+                { texto: '¿Algún familiar, amigo o médico ha mostrado preocupación por su consumo o le ha sugerido dejar de beber?', contexto: '', opciones: ['No', 'Sí, pero no en el último año', 'Sí, durante el último año'] }
+            ]
+        },
+        qu: {
+            nombre: 'Quechua',
+            trago: '1 upyana = 10g alcochol (cerveza 330ml, vino 140ml, pisco 40ml)',
+            preguntas: [
+                { texto: 'Hayk\'a kutitáq upyanki alcocholta?', contexto: 'Kay tapuyqa qanpa upyanaykita mask\'an.', opciones: ['Manam', 'Killa huk kutita', 'Killapi 2-4 kutita', 'Semana 2-3 kutita', 'Semana 4+ kutita'] },
+                { texto: 'Hayk\'a upyanatáq upyanki juk p\'unchawpi?', contexto: '', opciones: ['1-2', '3-4', '5-6', '7-9', '10+'] },
+                { texto: 'Hayk\'a kutitáq upyanki 6+ upyanata juk p\'unchawpi?', contexto: '', opciones: ['Manam', 'Killa huk kutita', 'Killapi', 'Semanapi', 'P\'unchawllapi'] },
+                { texto: 'Kay wata, hayk\'a kutitáq mana atirqankichu upyayta saqeyta?', contexto: '', opciones: ['Manam', 'Killa huk kutita', 'Killapi', 'Semanapi', 'P\'unchawllapi'] },
+                { texto: 'Kay wata, hayk\'a kutitáq mana rurarqankichu ruwanaykita upyasqaykirayku?', contexto: '', opci
