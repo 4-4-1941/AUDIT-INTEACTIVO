@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cuestionario AUDIT - Tamizaje de Alcoholismo</title>
+    <title>Cuestionario AUDIT - Tamizaje de Alcoholismo (OMS)</title>
     <style>
         * {
             box-sizing: border-box;
@@ -94,6 +94,23 @@
             padding-left: 6px;
         }
 
+        /* Introducción OMS */
+        .intro-oms {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            padding: 14px 18px;
+            margin-bottom: 28px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            color: #166534;
+            font-style: italic;
+        }
+
+        .intro-oms strong {
+            color: #14532d;
+            font-style: normal;
+        }
+
         /* Preguntas */
         .pregunta {
             margin-bottom: 28px;
@@ -175,7 +192,7 @@
             border-radius: 18px;
             text-align: center;
             font-weight: 600;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             border: 1px solid transparent;
             box-shadow: 0 4px 10px rgba(0,0,0,0.02);
         }
@@ -198,7 +215,31 @@
             border-color: #f87171;
         }
 
-        /* Pequeña nota final */
+        .dependencia {
+            background-color: #fce4ec;
+            color: #7f1d1d;
+            border-color: #ef5350;
+        }
+
+        .consejos {
+            margin-top: 15px;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            text-align: left;
+            font-weight: 400;
+        }
+
+        .consejos ul {
+            margin: 8px 0 0 20px;
+        }
+
+        .consejos ul li {
+            margin-bottom: 3px;
+        }
+
+        /* Footer */
         .footer-note {
             margin-top: 18px;
             font-size: 0.8rem;
@@ -223,6 +264,10 @@
             .guia-trago ul {
                 margin-left: 10px;
             }
+            .resultado {
+                font-size: 1rem;
+                padding: 18px 14px;
+            }
         }
     </style>
 </head>
@@ -237,14 +282,25 @@
         <strong>⚕️ Aviso Legal / Descargo de Responsabilidad:</strong> Esta herramienta digitalizada es estrictamente para fines informativos y de tamizaje preventivo. Los resultados no constituyen un diagnóstico médico, psiquiátrico ni psicológico formal. Si le preocupa su consumo de alcohol, acuda a un profesional de la salud mental o a un centro asistencial.
     </div>
 
-    <!-- Guía de trago estándar Perú -->
+    <!-- Introducción recomendada por la OMS (página 15 del manual) -->
+    <div class="intro-oms">
+        <strong>📋 Antes de comenzar:</strong><br>
+        <em>"Como parte de nuestra atención sanitaria es importante examinar aspectos del estilo de vida que puedan tener un efecto sobre la salud de nuestros pacientes. Esta información nos ayudará a darles mejor tratamiento y de mayor calidad. Por lo tanto, le pedimos que complete este cuestionario sobre su consumo de bebidas alcohólicas durante el último año. Por favor, responda tan concreta y honestamente como le sea posible. Toda la información será tratada en la más estricta confidencialidad."</em>
+        <br><br>
+        <span style="font-size:0.9rem; font-style:normal;">— <strong>Organización Mundial de la Salud (OMS)</strong>, Manual del AUDIT, 2001</span>
+    </div>
+
+    <!-- Guía de trago estándar (adaptada a Perú según manual, página 32) -->
     <div class="guia-trago">
-        <strong>🥃 Guía de Referencia (Perú):</strong> Considera que <strong>"1 trago estándar"</strong> equivale aproximadamente a:
+        <strong>🥃 Guía de Referencia (Perú):</strong> Según la OMS, <strong>"1 trago estándar"</strong> equivale a <strong>10 gramos de alcohol puro</strong>, aproximadamente:
         <ul>
-            <li>1 lata o botella pequeña de cerveza (330 ml).</li>
-            <li>1 copa de vino (100 ml).</li>
-            <li>1 copa o vaso corto de pisco, ron, whisky o vodka (40 ml).</li>
+            <li>1 lata o botella pequeña de cerveza (330 ml al 5%) ≈ 13 g de alcohol</li>
+            <li>1 copa de vino (140 ml al 12%) ≈ 13 g de alcohol</li>
+            <li>1 copa o vaso corto de pisco, ron, whisky o vodka (40 ml al 40%) ≈ 13 g de alcohol</li>
         </ul>
+        <div style="margin-top:8px; font-size:0.85rem; color:#1e4a7a;">
+            <strong>Nota:</strong> El consumo de bajo riesgo recomendado por la OMS es de hasta <strong>20 gramos de alcohol por día</strong>, con <strong>2 días sin beber</strong> a la semana.
+        </div>
     </div>
 
     <form id="auditForm">
@@ -348,7 +404,10 @@
     </form>
 
     <div id="resultadoBox" class="resultado"></div>
-    <div class="footer-note">Cuestionario basado en la guía de la OMS · Uso preventivo</div>
+    <div class="footer-note">
+        Cuestionario basado en el manual oficial de la OMS (2001) · Uso preventivo<br>
+        <span style="font-size:0.7rem; color:#94a3b8;">Punto de corte: 8 (general) · 7 (mujeres y >65 años)</span>
+    </div>
 </div>
 
 <script>
@@ -374,36 +433,68 @@
         const divResultado = document.getElementById('resultadoBox');
         divResultado.style.display = 'block';
 
-        // Interpretación según puntaje AUDIT (rangos estándar)
+        // ============================================================
+        // INTERPRETACIÓN SEGÚN EL MANUAL DE LA OMS (página 21)
+        // ============================================================
         let nivel = '';
+        let zona = '';
         let mensaje = '';
+        let intervencion = '';
+        let consejosExtra = '';
 
         if (puntajeTotal >= 0 && puntajeTotal <= 7) {
             nivel = 'bajo-riesgo';
-            mensaje = '✅ Bajo riesgo: consumo de alcohol dentro de parámetros saludables. Siga manteniendo hábitos responsables.';
+            zona = 'Zona I';
+            mensaje = '✅ <strong>Bajo riesgo / Abstinencia</strong>';
+            intervencion = '📚 <strong>Intervención recomendada:</strong> Educación sobre alcohol. Mantener hábitos saludables y consumo dentro de los límites de bajo riesgo (máximo 20 g/día, 2 días sin beber).';
+            consejosExtra = `
+                <div class="consejos">
+                    <strong>💡 Consejos de la OMS:</strong>
+                    <ul>
+                        <li>No beba si va a conducir o manejar maquinaria</li>
+                        <li>No beba si está embarazada o cree que podría estarlo</li>
+                        <li>No beba si tiene alguna contraindicación médica</li>
+                        <li>No beba después de tomar ciertos medicamentos (sedantes, analgésicos, antihipertensivos)</li>
+                    </ul>
+                </div>
+            `;
         } else if (puntajeTotal >= 8 && puntajeTotal <= 15) {
             nivel = 'riesgo-medio';
-            mensaje = '⚠️ Riesgo medio: consumo que puede generar problemas. Se recomienda reducir el consumo y consultar con un profesional de la salud.';
-        } else if (puntajeTotal >= 16) {
+            zona = 'Zona II';
+            mensaje = '⚠️ <strong>Consumo de riesgo</strong>';
+            intervencion = '📋 <strong>Intervención recomendada:</strong> Consejo simple enfocado en la reducción del consumo. Se recomienda realizar un seguimiento y establecer metas de reducción.';
+            consejosExtra = `
+                <div class="consejos">
+                    <strong>💡 Recomendaciones:</strong>
+                    <ul>
+                        <li>Considere reducir su consumo a menos de 20 g de alcohol por día</li>
+                        <li>Establezca al menos 2 días sin beber por semana</li>
+                        <li>Evite beber en situaciones de riesgo (conducción, embarazo, medicamentos)</li>
+                        <li>Consulte con su médico de cabecera sobre su consumo</li>
+                    </ul>
+                </div>
+            `;
+        } else if (puntajeTotal >= 16 && puntajeTotal <= 19) {
             nivel = 'riesgo-alto';
-            mensaje = '🔴 Riesgo alto: consumo muy elevado, posible dependencia al alcohol. Es fundamental buscar ayuda especializada (médico, psicólogo o centro de salud).';
-        } else {
-            // fallback
-            nivel = 'bajo-riesgo';
-            mensaje = 'Puntaje no válido, revise las respuestas.';
-        }
-
-        // Asignar clases y mostrar mensaje
-        divResultado.className = `resultado ${nivel}`;
-        divResultado.innerHTML = `<strong>Puntaje total: ${puntajeTotal}</strong><br><br>${mensaje}`;
-
-        // Desplazar suavemente hacia el resultado
-        divResultado.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-
-    // Opcional: Permitir reset visual o comportamiento adicional
-    // Se puede añadir un listener para limpiar resultado al cambiar respuestas, pero no es necesario.
-</script>
-
-</body>
-  </html>
+            zona = 'Zona III';
+            mensaje = '🔶 <strong>Consumo perjudicial</strong>';
+            intervencion = '🩺 <strong>Intervención recomendada:</strong> Consejo simple + terapia breve + monitorización continuada. Se recomienda una evaluación más amplia si no hay respuesta.';
+            consejosExtra = `
+                <div class="consejos">
+                    <strong>💡 Recomendaciones importantes:</strong>
+                    <ul>
+                        <li>Su consumo está causando daños a su salud o a su entorno</li>
+                        <li>Considere seriamente reducir o abandonar el consumo</li>
+                        <li>Busque ayuda profesional: médico, psicólogo o centro de salud</li>
+                        <li>Evite totalmente el consumo en situaciones de riesgo</li>
+                    </ul>
+                </div>
+            `;
+        } else if (puntajeTotal >= 20) {
+            nivel = 'dependencia';
+            zona = 'Zona IV';
+            mensaje = '🔴 <strong>Posible dependencia de alcohol</strong>';
+            intervencion = '🏥 <strong>Intervención recomendada:</strong> Derivación a especialista para evaluación diagnóstica y tratamiento. Se requiere atención especializada.';
+            consejosExtra = `
+                <div class="consejos">
+          
