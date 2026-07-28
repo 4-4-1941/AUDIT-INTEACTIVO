@@ -187,6 +187,42 @@
             color: #92400e;
         }
 
+        /* ===== AVISO VALIDACIÓN LINGÜÍSTICA ===== */
+        .aviso-validacion {
+            background: #fef2f2;
+            border-left: 4px solid #dc2626;
+            padding: 8px 12px;
+            margin-bottom: 12px;
+            font-size: 0.7rem;
+            border-radius: 6px;
+            color: #7f1d1d;
+            line-height: 1.4;
+        }
+
+        .aviso-validacion strong {
+            color: #991b1b;
+        }
+
+        /* ===== SUB-PREGUNTAS (ej. Ítem 2A/2B) ===== */
+        .sub-pregunta {
+            margin-bottom: 12px;
+            padding-top: 8px;
+            border-top: 1px dashed #e2e8f0;
+        }
+
+        .sub-pregunta:first-of-type {
+            border-top: none;
+            padding-top: 0;
+        }
+
+        .sub-label {
+            font-weight: 700;
+            color: #1a5a7a;
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+            line-height: 1.35;
+        }
+
         /* ===== PROGRESO ===== */
         .progreso {
             display: flex;
@@ -545,16 +581,21 @@
             <label for="idiomaSelect">🌍 Idioma:</label>
             <select id="idiomaSelect" onchange="cambiarIdioma()">
                 <option value="es">🇪🇸 Español</option>
-                <option value="qu">🏔️ Quechua</option>
-                <option value="ay">🏔️ Aymara</option>
-                <option value="con">🌳 Conihua</option>
-                <option value="ship">🌳 Shipibo</option>
+                <option value="qu">🏔️ Quechua (Ayacucho, validado)</option>
+                <option value="ay">🏔️ Aymara (no verificado)</option>
+                <option value="con">🌳 Conihua (no verificado)</option>
+                <option value="ship">🌳 Shipibo (no verificado)</option>
             </select>
         </div>
 
         <!-- Disclaimer -->
         <div class="disclaimer">
             <strong>⚕️ Aviso:</strong> Tamizaje preventivo. Los resultados <strong>NO</strong> son diagnóstico médico.
+        </div>
+
+        <!-- Aviso de validación lingüística -->
+        <div class="aviso-validacion" id="avisoValidacion" style="display:none;">
+            <strong>⚠️ Traducción no verificada:</strong> Esta versión lingüística aún no ha sido validada por una fuente clínica oficial. Úsela solo con carácter referencial hasta su validación formal.
         </div>
 
         <!-- Progreso -->
@@ -600,6 +641,7 @@
     const idiomas = {
         es: {
             nombre: 'Español',
+            verificado: true,
             trago: '1 trago = 10g alcohol (cerveza 330ml, vino 140ml, destilado 40ml)',
             preguntas: [
                 { texto: '¿Con qué frecuencia consume alguna bebida alcohólica?', contexto: '', opciones: ['Nunca', '1 o menos veces al mes', 'De 2 a 4 veces al mes', 'De 2 a 3 veces por semana', '4 o más veces por semana'] },
@@ -616,22 +658,29 @@
         },
         qu: {
             nombre: 'Quechua',
-            trago: '1 upyana = 10g alcochol (cerveza 330ml, vino 140ml, pisco 40ml)',
+            verificado: true,
+            trago: 'Bebida estándar (región alto-andina): ½ botella de cerveza grande (315ml), 2 copitas de caña (2x25-30ml), ¼ de caña en botella de Kola (60ml), o 1 jarro de chicha (300ml)',
             preguntas: [
-                { texto: 'Hayk\'a kutitáq upyanki alcocholta?', contexto: 'Kay tapuyqa qanpa upyanaykita mask\'an.', opciones: ['Manam', 'Killa huk kutita', 'Killapi 2-4 kutita', 'Semana 2-3 kutita', 'Semana 4+ kutita'] },
-                { texto: 'Hayk\'a upyanatáq upyanki juk p\'unchawpi?', contexto: '', opciones: ['1-2', '3-4', '5-6', '7-9', '10+'] },
-                { texto: 'Hayk\'a kutitáq upyanki 6+ upyanata juk p\'unchawpi?', contexto: '', opciones: ['Manam', 'Killa huk kutita', 'Killapi', 'Semanapi', 'P\'unchawllapi'] },
-                { texto: 'Kay wata, hayk\'a kutitáq mana atirqankichu upyayta saqeyta?', contexto: '', opciones: ['Manam', 'Killa huk kutita', 'Killapi', 'Semanapi', 'P\'unchawllapi'] },
-                { texto: 'Kay wata, hayk\'a kutitáq mana rurarqankichu ruwanaykita upyasqaykirayku?', contexto: '', opciones: ['Manam', 'Killa huk kutita', 'Killapi', 'Semanapi', 'P\'unchawllapi'] },
-                { texto: 'Kay wata, hayk\'a kutitáq upyanayki karan allichakunaykipaq?', contexto: '', opciones: ['Manam', 'Killa huk kutita', 'Killapi', 'Semanapi', 'P\'unchawllapi'] },
-                { texto: 'Kay wata, hayk\'a kutitáq llakisqa sientikanki upyasqaykirayku?', contexto: '', opciones: ['Manam', 'Killa huk kutita', 'Killapi', 'Semanapi', 'P\'unchawllapi'] },
-                { texto: 'Kay wata, hayk\'a kutitáq mana yuyarirqankichu upyasqaykirayku?', contexto: '', opciones: ['Manam', 'Killa huk kutita', 'Killapi', 'Semanapi', 'P\'unchawllapi'] },
-                { texto: '¿Qam icha huk runa dañakurqankichu upyasqaykirayku?', contexto: '', opciones: ['Manam', 'Arí, manam kay watachu', 'Arí, kay wata'] },
-                { texto: '¿Huk familiayki, amiguyki icha médico llakikurqankichu upyasqaykirayku?', contexto: '', opciones: ['Manam', 'Arí, manam kay watachu', 'Arí, kay wata'] }
+                { texto: 'Qampa usuykipi (costumbriyki), ¿hayka kutitataq upyanki?', contexto: 'Kumparikiykiwan, amiguykikunawan huñunakuspa, minkakunapi utaq llamkaykunapipas, tragukunata upyanki (cerveza, sidra, kañasu, aqa, yakuwan alkul chaqwasqa utaq huk rikchaq upyaykuna).', opciones: ['Mana huk kutitapas', 'Huk kutita killapi', 'Iskay, kimsa utaq tawa kutita sapa killa', 'Iskay utaq kinsa kutita sapa simana', 'Sapa punchaw, yaqa sapa punchaw'] },
+                { contexto: '⚠️ Kay tapuyqa iskay tikrasqa kaptillan (2A raymipaq, 2B sapa punchawpaq); puntajeqa taqwan yupasqa kanqa, chaymi Ítem 2 hina qillqasqa kanqa (validación qatiqllaraq).',
+                  sub: [
+                    { label: '2A. ¿Hayka bebida estándar raymi punchawpi (fiesta) utaq huñunakuykunapipas (compromiso) upyanki?', opciones: ['Hukta utaq iskayta', 'Kinsata utaq tawata', 'Pichqata utaq suqtata', 'Qanchista, pusaqta utaq isqunta', 'Chunkamanta aswan mastaraq'] },
+                    { label: '2B. ¿Hayka bebida estándar wakin punchaw upyanki?', opciones: ['Hukta utaq iskayta', 'Kinsata utaq tawata', 'Pichqata utaq suqtata', 'Qanchista, pusaqta utaq isqunta', 'Chunkamanta aswan mastaraq'] }
+                  ]
+                },
+                { texto: '¿Suqtamanta aswan mastaraq (bebida estándar), huk punchawllapi, hayka kutitataq upyarqanki?', contexto: '', opciones: ['Nunkapas', 'Raymillapi utaq compromisollapi', 'Sapa killa', 'Sapa simana', 'Sapa punchaw, yaqa sapa punchaw'] },
+                { texto: 'Kay wata upyapakusqaykipi, ¿tukuy punchaw upyayta munarqankichu utaq mana upyay saqiyta atirqankichu?', contexto: '', opciones: ['Nunkapas', 'Raymillapi utaq compromisollapi', 'Sapa killa', 'Sapa simana', 'Sapa punchaw, yaqa sapa punchaw'] },
+                { texto: 'Kay wata upyasqaykirayku, ¿hayka kutitaq mana llamkargankichu nitaq ruwanaykita ruwargankichu?', contexto: '', opciones: ['Nunkapas', 'Raymillapi utaq compromisollapi', 'Sapa killa', 'Sapa simana', 'Sapa punchaw, yaqa sapa punchaw'] },
+                { texto: 'Kay wata, ¿hayka kutitam alli-allinta upyaruspa, urmaykita hampirqanki?', contexto: '', opciones: ['Nunkapas', 'Sapa raymillapi utaq compromisollapi', 'Sapa killa', 'Sapa simana', 'Sapa punchaw, yaqa sapa punchaw'] },
+                { texto: 'Kay wata, ¿upyarquspaña, hayka kutim nakakuq hina karqanki utaq huchayuq hina rikukurqanki?', contexto: '', opciones: ['Nunkapas', 'Sapa raymillapi utaq compromisollapi', 'Sapa killa', 'Sapa simana', 'Sapa punchaw, yaqa sapa punchaw'] },
+                { texto: 'Kay wata, ¿macharuspa imapas ruwasqaykita mana yuyarqankichu?', contexto: '', opciones: ['Nunkapas', 'Raymillapi utaq compromisullapi', 'Sapa killa', 'Sapa simana', 'Sapa punchaw, yaqa sapa punchaw'] },
+                { texto: 'Upyasqaykipi, ¿accidentakurqankichu, macharuspa piwanpas maqanakurankichu, pitapas maqarqankichu?', contexto: '', opciones: ['Nunkapas', 'Ari, aswan unay watapi (manam kay watachu)', 'Ari, kay watapi'] },
+                { texto: '¿Hukkaq aylluyki, amiguyki, vecinuyki, hampina wasipi llamkaqpas utaq llaqtamasiykipas "amaña upyaychu" nisurqankichu?', contexto: '', opciones: ['Nunkapas', 'Ari, aswan unay watañam (manam kay watachu)', 'Ari, kay watapi'] }
             ]
         },
         ay: {
             nombre: 'Aymara',
+            verificado: false,
             trago: '1 umaña = 10g alcochol (cerveza 330ml, vino 140ml, pisco 40ml)',
             preguntas: [
                 { texto: 'Kuna sapüru umantasma alcochol?', contexto: 'Aka askixa qan umañamampiwa.', opciones: ['Janipuniw', 'May mä phaxsin', 'Phaxsi 2-4', 'Sämana 2-3', 'Sämana 4+'] },
@@ -648,6 +697,7 @@
         },
         con: {
             nombre: 'Conihua',
+            verificado: false,
             trago: '1 inó = 10g alcohol (cerveza 330ml, vino 140ml, aguardiente 40ml)',
             preguntas: [
                 { texto: '¿Inóquera oquebega conihua?', contexto: 'Ea tapui tsinané qui oquebega.', opciones: ['Nébiri', 'Jatari 1', 'Jatari 2-4', 'Ajá 2-3', 'Ajá 4+'] },
@@ -664,6 +714,7 @@
         },
         ship: {
             nombre: 'Shipibo',
+            verificado: false,
             trago: '1 káti = 10g alcohol (cerveza 330ml, vino 140ml, aguardiente 40ml)',
             preguntas: [
                 { texto: '¿Jawen káti pakeá jene?', contexto: 'Ea póti jawen káti pakenki.', opciones: ['Noká', 'Méa 1', 'Méa 2-4', 'Méa 2-3', 'Méa 4+'] },
@@ -687,6 +738,7 @@
     let preguntaActual = 0;
     const totalPreguntas = 10;
     let respuestas = new Array(totalPreguntas).fill(null);
+    let subRespuestas = {}; // { idx: [valA, valB] } para preguntas desdobladas (ej. Ítem 2A/2B Quechua)
 
     // ================================================================
     // FUNCIONES
@@ -702,25 +754,44 @@
             div.className = 'pregunta' + (idx === 0 ? ' active' : '');
             div.id = `pregunta-${idx}`;
 
-            let html = `
-                <div class="p-label">Pregunta ${idx+1} de ${totalPreguntas}</div>
-                <p>${p.texto}</p>
-            `;
+            let html = `<div class="p-label">Pregunta ${idx+1} de ${totalPreguntas}</div>`;
 
-            if (p.contexto) {
-                html += `<div class="contexto-cultural">📖 ${p.contexto}</div>`;
+            if (p.sub) {
+                // Pregunta desdoblada en sub-ítems (ej. 2A/2B) — se promedian para el puntaje final
+                if (!subRespuestas[idx]) subRespuestas[idx] = [null, null];
+                if (p.texto) html += `<p>${p.texto}</p>`;
+                if (p.contexto) html += `<div class="contexto-cultural">📖 ${p.contexto}</div>`;
+
+                p.sub.forEach((s, si) => {
+                    html += `<div class="sub-pregunta"><p class="sub-label">${s.label}</p>`;
+                    s.opciones.forEach((opcion, oi) => {
+                        const checked = subRespuestas[idx][si] === oi ? 'checked' : '';
+                        html += `
+                            <label class="${checked ? 'selected' : ''}">
+                                <input type="radio" name="p${idx}_${si}" value="${oi}" ${checked} onchange="seleccionarSub(${idx}, ${si}, ${oi})">
+                                ${opcion}
+                            </label>
+                        `;
+                    });
+                    html += `</div>`;
+                });
+            } else {
+                html += `<p>${p.texto}</p>`;
+                if (p.contexto) {
+                    html += `<div class="contexto-cultural">📖 ${p.contexto}</div>`;
+                }
+
+                p.opciones.forEach((opcion, oi) => {
+                    const val = idx >= 8 ? (oi === 0 ? 0 : oi === 1 ? 2 : 4) : oi;
+                    const checked = respuestas[idx] === val ? 'checked' : '';
+                    html += `
+                        <label class="${checked ? 'selected' : ''}">
+                            <input type="radio" name="p${idx}" value="${val}" ${checked} onchange="seleccionarRespuesta(${idx}, ${val})">
+                            ${opcion}
+                        </label>
+                    `;
+                });
             }
-
-            p.opciones.forEach((opcion, oi) => {
-                const val = idx >= 8 ? (oi === 0 ? 0 : oi === 1 ? 2 : 4) : oi;
-                const checked = respuestas[idx] === val ? 'checked' : '';
-                html += `
-                    <label class="${checked ? 'selected' : ''}">
-                        <input type="radio" name="p${idx}" value="${val}" ${checked} onchange="seleccionarRespuesta(${idx}, ${val})">
-                        ${opcion}
-                    </label>
-                `;
-            });
 
             div.innerHTML = html;
             container.appendChild(div);
@@ -745,6 +816,34 @@
 
         if (idx < totalPreguntas - 1 && respuestas[idx] !== null) {
             setTimeout(() => cambiarPregunta(1), 250);
+        }
+        actualizarBotones();
+    }
+
+    // Maneja preguntas desdobladas (ej. Ítem 2A/2B Quechua): promedia ambas sub-respuestas
+    // para obtener el valor único del ítem, redondeado al entero más cercano (escala AUDIT 0-4).
+    function seleccionarSub(idx, si, val) {
+        if (!subRespuestas[idx]) subRespuestas[idx] = [null, null];
+        subRespuestas[idx][si] = val;
+
+        const radios = document.querySelectorAll(`#pregunta-${idx} input[name="p${idx}_${si}"]`);
+        radios.forEach(radio => {
+            const label = radio.closest('label');
+            if (parseInt(radio.value) === val) {
+                label.classList.add('selected');
+            } else {
+                label.classList.remove('selected');
+            }
+        });
+
+        const [a, b] = subRespuestas[idx];
+        if (a !== null && b !== null) {
+            respuestas[idx] = Math.round((a + b) / 2);
+            if (idx < totalPreguntas - 1) {
+                setTimeout(() => cambiarPregunta(1), 300);
+            }
+        } else {
+            respuestas[idx] = null;
         }
         actualizarBotones();
     }
@@ -791,11 +890,15 @@
 
     function actualizarGuia() {
         document.getElementById('textoTrago').textContent = idiomas[idiomaActual].trago;
+        const aviso = document.getElementById('avisoValidacion');
+        aviso.style.display = idiomas[idiomaActual].verificado ? 'none' : 'block';
     }
 
     function cambiarIdioma() {
         idiomaActual = document.getElementById('idiomaSelect').value;
         respuestas = new Array(totalPreguntas).fill(null);
+        subRespuestas = {};
+        preguntaActual = 0;
         cargarPreguntas();
         document.getElementById('resultadoBox').className = 'resultado';
         document.getElementById('resultadoBox').style.display = 'none';
