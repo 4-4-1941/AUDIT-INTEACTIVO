@@ -33,7 +33,6 @@
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
         }
 
-        /* Header con copyright */
         .header-sip {
             display: flex;
             justify-content: space-between;
@@ -74,7 +73,6 @@
             margin-bottom: 18px;
         }
 
-        /* Selector de idioma */
         .idioma-selector {
             background: #f1f5f9;
             border-radius: 12px;
@@ -115,7 +113,6 @@
             font-size: 1.3rem;
         }
 
-        /* Disclaimer */
         .disclaimer {
             background-color: #fef9e7;
             border-left: 6px solid #d97706;
@@ -130,7 +127,6 @@
             color: #92400e;
         }
 
-        /* Progreso */
         .progreso {
             display: flex;
             justify-content: space-between;
@@ -173,7 +169,6 @@
             text-align: right;
         }
 
-        /* Guía de trago */
         .guia-trago {
             background-color: #eef6ff;
             border: 1px solid #b9d5fd;
@@ -197,7 +192,6 @@
             margin-bottom: 2px;
         }
 
-        /* Preguntas - ahora una a la vez */
         .pregunta-container {
             position: relative;
             min-height: 300px;
@@ -280,7 +274,6 @@
             margin: 0;
         }
 
-        /* Navegación */
         .nav-buttons {
             display: flex;
             justify-content: space-between;
@@ -335,7 +328,6 @@
             background: #b45309;
         }
 
-        /* Resultado */
         .resultado {
             display: none;
             margin-top: 25px;
@@ -395,7 +387,6 @@
             margin-bottom: 2px;
         }
 
-        /* Footer */
         .footer-sip {
             margin-top: 20px;
             padding-top: 15px;
@@ -409,7 +400,6 @@
             color: #1e4a7a;
         }
 
-        /* Responsive */
         @media (max-width: 500px) {
             .container {
                 padding: 16px 12px;
@@ -486,7 +476,7 @@
     </div>
     <div class="sub">Test de Identificación de Trastornos por Consumo de Alcohol (OMS)</div>
 
-    <!-- Selector de idioma / región -->
+    <!-- Selector de idioma -->
     <div class="idioma-selector">
         <span class="region-icon">🌍</span>
         <label for="idiomaSelect">Adaptación lingüística:</label>
@@ -513,14 +503,14 @@
         <span class="pregunta-num" id="textoProgreso">0%</span>
     </div>
 
-    <!-- Guía de trago (adaptada) -->
+    <!-- Guía de trago -->
     <div class="guia-trago" id="guiaTrago">
         <strong>🥃 Referencia:</strong> <span id="textoTrago">1 trago estándar = 10g de alcohol puro (cerveza 330ml, vino 140ml, destilado 40ml)</span>
     </div>
 
     <!-- Contenedor de preguntas -->
     <div class="pregunta-container" id="preguntaContainer">
-        <!-- Las preguntas se generan dinámicamente con JavaScript -->
+        <!-- Generado por JavaScript -->
     </div>
 
     <!-- Botones de navegación -->
@@ -533,7 +523,7 @@
     <!-- Resultado -->
     <div id="resultadoBox" class="resultado"></div>
 
-    <!-- Footer SIP -->
+    <!-- Footer -->
     <div class="footer-sip">
         <strong>© 2026 SIP SYSTEM INTELLIGENCE PLATFORM</strong> — Todos los derechos reservados.<br>
         Herramienta de tamizaje basada en el manual oficial de la OMS (2001).<br>
@@ -543,68 +533,28 @@
 
 <script>
     // ================================================================
-    // BASE DE DATOS DE PREGUNTAS CON TRADUCCIONES
+    // BASE DE DATOS COMPLETA CON TODAS LAS PREGUNTAS TRADUCIDAS
     // ================================================================
     const idiomas = {
         es: {
             nombre: 'Español (estándar)',
             trago: '1 trago estándar = 10g de alcohol puro (cerveza 330ml, vino 140ml, destilado 40ml)',
             preguntas: [
-                {
-                    texto: '¿Con qué frecuencia consume alguna bebida alcohólica?',
-                    contexto: '',
-                    opciones: ['Nunca', '1 o menos veces al mes', 'De 2 a 4 veces al mes', 'De 2 a 3 veces por semana', '4 o más veces por semana']
-                },
-                {
-                    texto: '¿Cuántos tragos estándar suele tomar en un día de consumo normal?',
-                    contexto: '',
-                    opciones: ['1 o 2', '3 o 4', '5 o 6', 'De 7 a 9', '10 o más']
-                },
-                {
-                    texto: '¿Con qué frecuencia toma 6 o más tragos estándar en una sola ocasión?',
-                    contexto: '',
-                    opciones: ['Nunca', 'Menos de una vez al mes', 'Mensualmente', 'Semanalmente', 'A diario o casi a diario']
-                },
-                {
-                    texto: 'En el último año, ¿con qué frecuencia no pudo parar de beber una vez que había empezado?',
-                    contexto: '',
-                    opciones: ['Nunca', 'Menos de una vez al mes', 'Mensualmente', 'Semanalmente', 'A diario o casi a diario']
-                },
-                {
-                    texto: 'En el último año, ¿con qué frecuencia no pudo hacer lo que se esperaba de usted debido a la bebida?',
-                    contexto: '',
-                    opciones: ['Nunca', 'Menos de una vez al mes', 'Mensualmente', 'Semanalmente', 'A diario o casi a diario']
-                },
-                {
-                    texto: 'En el último año, ¿con qué frecuencia necesitó beber en ayunas para recuperarse después de haber bebido mucho?',
-                    contexto: '',
-                    opciones: ['Nunca', 'Menos de una vez al mes', 'Mensualmente', 'Semanalmente', 'A diario o casi a diario']
-                },
-                {
-                    texto: 'En el último año, ¿con qué frecuencia ha tenido remordimientos o culpa después de beber?',
-                    contexto: '',
-                    opciones: ['Nunca', 'Menos de una vez al mes', 'Mensualmente', 'Semanalmente', 'A diario o casi a diario']
-                },
-                {
-                    texto: 'En el último año, ¿con qué frecuencia no ha recordado lo que pasó porque había bebido?',
-                    contexto: '',
-                    opciones: ['Nunca', 'Menos de una vez al mes', 'Mensualmente', 'Semanalmente', 'A diario o casi a diario']
-                },
-                {
-                    texto: '¿Usted o alguien más ha resultado herido debido a su consumo de alcohol?',
-                    contexto: '',
-                    opciones: ['No', 'Sí, pero no en el último año', 'Sí, durante el último año']
-                },
-                {
-                    texto: '¿Algún familiar, amigo o médico ha mostrado preocupación por su consumo o le ha sugerido dejar de beber?',
-                    contexto: '',
-                    opciones: ['No', 'Sí, pero no en el último año', 'Sí, durante el último año']
-                }
+                { texto: '¿Con qué frecuencia consume alguna bebida alcohólica?', contexto: '', opciones: ['Nunca', '1 o menos veces al mes', 'De 2 a 4 veces al mes', 'De 2 a 3 veces por semana', '4 o más veces por semana'] },
+                { texto: '¿Cuántos tragos estándar suele tomar en un día de consumo normal?', contexto: '', opciones: ['1 o 2', '3 o 4', '5 o 6', 'De 7 a 9', '10 o más'] },
+                { texto: '¿Con qué frecuencia toma 6 o más tragos estándar en una sola ocasión?', contexto: '', opciones: ['Nunca', 'Menos de una vez al mes', 'Mensualmente', 'Semanalmente', 'A diario o casi a diario'] },
+                { texto: 'En el último año, ¿con qué frecuencia no pudo parar de beber una vez que había empezado?', contexto: '', opciones: ['Nunca', 'Menos de una vez al mes', 'Mensualmente', 'Semanalmente', 'A diario o casi a diario'] },
+                { texto: 'En el último año, ¿con qué frecuencia no pudo hacer lo que se esperaba de usted debido a la bebida?', contexto: '', opciones: ['Nunca', 'Menos de una vez al mes', 'Mensualmente', 'Semanalmente', 'A diario o casi a diario'] },
+                { texto: 'En el último año, ¿con qué frecuencia necesitó beber en ayunas para recuperarse después de haber bebido mucho?', contexto: '', opciones: ['Nunca', 'Menos de una vez al mes', 'Mensualmente', 'Semanalmente', 'A diario o casi a diario'] },
+                { texto: 'En el último año, ¿con qué frecuencia ha tenido remordimientos o culpa después de beber?', contexto: '', opciones: ['Nunca', 'Menos de una vez al mes', 'Mensualmente', 'Semanalmente', 'A diario o casi a diario'] },
+                { texto: 'En el último año, ¿con qué frecuencia no ha recordado lo que pasó porque había bebido?', contexto: '', opciones: ['Nunca', 'Menos de una vez al mes', 'Mensualmente', 'Semanalmente', 'A diario o casi a diario'] },
+                { texto: '¿Usted o alguien más ha resultado herido debido a su consumo de alcohol?', contexto: '', opciones: ['No', 'Sí, pero no en el último año', 'Sí, durante el último año'] },
+                { texto: '¿Algún familiar, amigo o médico ha mostrado preocupación por su consumo o le ha sugerido dejar de beber?', contexto: '', opciones: ['No', 'Sí, pero no en el último año', 'Sí, durante el último año'] }
             ]
         },
         qu: {
             nombre: 'Quechua (Sierra)',
-            trago: '1 upyana = 10g de alcochol (cerveza 330ml, vino 140ml, pisco 40ml)',
+            trago: '1 upyana = 10g alcochol (cerveza 330ml, vino 140ml, pisco 40ml)',
             preguntas: [
                 { texto: 'Hayk\'a kutitáq upyanki alcocholta?', contexto: 'Kay tapuyqa qanpa upyanaykita mask\'an.', opciones: ['Manam', 'Killa huk kutita', 'Killapi 2-4 kutita', 'Semana 2-3 kutita', 'Semana 4+ kutita'] },
                 { texto: 'Hayk\'a upyanatáq upyanki juk p\'unchawpi?', contexto: '', opciones: ['1-2', '3-4', '5-6', '7-9', '10+'] },
@@ -614,4 +564,16 @@
                 { texto: 'Kay wata, hayk\'a kutitáq upyanayki karan allichakunaykipaq?', contexto: '', opciones: ['Manam', 'Killa huk kutita', 'Killapi', 'Semanapi', 'P\'unchawllapi'] },
                 { texto: 'Kay wata, hayk\'a kutitáq llakisqa sientikanki upyasqaykirayku?', contexto: '', opciones: ['Manam', 'Killa huk kutita', 'Killapi', 'Semanapi', 'P\'unchawllapi'] },
                 { texto: 'Kay wata, hayk\'a kutitáq mana yuyarirqankichu upyasqaykirayku?', contexto: '', opciones: ['Manam', 'Killa huk kutita', 'Killapi', 'Semanapi', 'P\'unchawllapi'] },
-                { texto: '¿Qam icha huk runa dañakurqankichu upyasqaykirayku?', contexto: '', opciones: ['Manam', 'Arí, manam kay wata
+                { texto: '¿Qam icha huk runa dañakurqankichu upyasqaykirayku?', contexto: '', opciones: ['Manam', 'Arí, manam kay watachu', 'Arí, kay wata'] },
+                { texto: '¿Huk familiayki, amiguyki icha médico llakikurqankichu upyasqaykirayku?', contexto: '', opciones: ['Manam', 'Arí, manam kay watachu', 'Arí, kay wata'] }
+            ]
+        },
+        ay: {
+            nombre: 'Aymara (Sierra)',
+            trago: '1 umaña = 10g alcochol (cerveza 330ml, vino 140ml, pisco 40ml)',
+            preguntas: [
+                { texto: 'Kuna sapüru umantasma alcochol?', contexto: 'Aka askixa qan umañamampiwa.', opciones: ['Janipuniw', 'May mä phaxsin', 'Phaxsi 2-4', 'Sämana 2-3', 'Sämana 4+'] },
+                { texto: 'Kuna umañanaka umantasma maya uru?', contexto: '', opciones: ['1-2', '3-4', '5-6', '7-9', '10+'] },
+                { texto: 'Kuna sapüru umantasma 6+ umañanaka?', contexto: '', opciones: ['Janipuniw', 'May mä phaxsin', 'Phaxsin', 'Sämanan', 'Uru urun'] },
+                { texto: 'Mä mara, kuna sapüru mana atispasma jayt\'añataki?', contexto: '', opciones: ['Janipuniw', 'May mä phaxsin', 'Phaxsin', 'Sämanan', 'Uru urun'] },
+                { texto: 'Mä mara, kuna sapüru mana
