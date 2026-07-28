@@ -13,13 +13,13 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f0f4fc;
+            background: #e8edf5;
             color: #1e293b;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 12px;
+            padding: 10px;
         }
 
         .app-container {
@@ -29,17 +29,16 @@
             border-radius: 28px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
             overflow: hidden;
-            position: relative;
-            min-height: 700px;
-            max-height: 95vh;
+            min-height: 680px;
+            max-height: 96vh;
             display: flex;
             flex-direction: column;
         }
 
-        /* ========== HEADER APP ========== */
+        /* ===== HEADER ===== */
         .app-header {
-            background: linear-gradient(135deg, #0b3b5c 0%, #1a5a7a 100%);
-            padding: 20px 20px 16px;
+            background: linear-gradient(135deg, #0a2e44 0%, #1a5a7a 100%);
+            padding: 18px 20px 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -53,49 +52,48 @@
         }
 
         .logo-icon {
-            width: 42px;
-            height: 42px;
-            background: rgba(255, 255, 255, 0.15);
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.12);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 800;
-            font-size: 18px;
+            font-size: 16px;
             color: white;
-            border: 2px solid rgba(255, 255, 255, 0.25);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             letter-spacing: -0.5px;
-            backdrop-filter: blur(4px);
             position: relative;
         }
 
         .logo-icon::after {
             content: '';
             position: absolute;
-            top: -4px;
-            right: -4px;
+            top: -3px;
+            right: -3px;
             width: 10px;
             height: 10px;
             background: #22c55e;
             border-radius: 50%;
-            border: 2px solid #0b3b5c;
+            border: 2px solid #0a2e44;
         }
 
         .logo-text {
             color: white;
-            line-height: 1.2;
+            line-height: 1.15;
         }
 
         .logo-text .sip {
             font-weight: 700;
             font-size: 1.1rem;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
 
         .logo-text .system {
             font-weight: 300;
-            font-size: 0.65rem;
-            opacity: 0.8;
+            font-size: 0.6rem;
+            opacity: 0.75;
             display: block;
             letter-spacing: 2px;
         }
@@ -103,33 +101,33 @@
         .app-title {
             color: white;
             font-weight: 700;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             letter-spacing: -0.5px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 4px 14px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 4px 16px;
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
         }
 
         .app-title small {
             font-weight: 300;
-            font-size: 0.5rem;
-            opacity: 0.7;
+            font-size: 0.45rem;
+            opacity: 0.6;
             display: block;
-            text-align: center;
             letter-spacing: 1px;
         }
 
-        /* ========== CONTENIDO SCROLLABLE ========== */
+        /* ===== BODY ===== */
         .app-body {
             flex: 1;
             overflow-y: auto;
-            padding: 16px 18px 12px;
-            background: #fafcff;
+            padding: 14px 16px 10px;
+            background: #f8faff;
         }
 
         .app-body::-webkit-scrollbar {
-            width: 4px;
+            width: 3px;
         }
 
         .app-body::-webkit-scrollbar-thumb {
@@ -137,16 +135,15 @@
             border-radius: 10px;
         }
 
-        /* ========== SELECTOR IDIOMA ========== */
+        /* ===== SELECTOR IDIOMA ===== */
         .idioma-selector {
             background: #f1f5f9;
             border-radius: 12px;
             padding: 8px 14px;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             gap: 10px;
-            flex-wrap: wrap;
             border: 1px solid #e2e8f0;
         }
 
@@ -159,27 +156,27 @@
 
         .idioma-selector select {
             flex: 1;
-            min-width: 120px;
-            padding: 5px 10px;
+            padding: 6px 10px;
             border: 2px solid #b9d5fd;
             border-radius: 8px;
             background: white;
-            font-size: 0.78rem;
+            font-size: 0.8rem;
             color: #1e293b;
             cursor: pointer;
             outline: none;
+            min-width: 100px;
         }
 
         .idioma-selector select:focus {
             border-color: #2563eb;
         }
 
-        /* ========== DISCLAIMER ========== */
+        /* ===== DISCLAIMER ===== */
         .disclaimer {
             background: #fef9e7;
             border-left: 4px solid #d97706;
             padding: 8px 12px;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             font-size: 0.7rem;
             border-radius: 6px;
             color: #7c4a1a;
@@ -190,12 +187,12 @@
             color: #92400e;
         }
 
-        /* ========== PROGRESO ========== */
+        /* ===== PROGRESO ===== */
         .progreso {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             padding: 6px 12px;
             background: #f8fafc;
             border-radius: 10px;
@@ -233,14 +230,14 @@
             text-align: right;
         }
 
-        /* ========== GUÍA TRAGO ========== */
+        /* ===== GUÍA ===== */
         .guia-trago {
             background: #eef6ff;
             border: 1px solid #b9d5fd;
             padding: 8px 12px;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             border-radius: 8px;
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             color: #0b3b5c;
         }
 
@@ -248,20 +245,9 @@
             color: #1e4a7a;
         }
 
-        .guia-trago ul {
-            margin: 3px 0 0 16px;
-            list-style-type: '🍺 ';
-        }
-
-        .guia-trago ul li {
-            margin-bottom: 1px;
-            font-size: 0.7rem;
-        }
-
-        /* ========== PREGUNTAS ========== */
+        /* ===== PREGUNTAS ===== */
         .pregunta-container {
-            position: relative;
-            min-height: 220px;
+            min-height: 200px;
         }
 
         .pregunta {
@@ -286,9 +272,9 @@
         .pregunta .p-label {
             font-weight: 700;
             color: #0b3b5c;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             margin-bottom: 2px;
-            opacity: 0.7;
+            opacity: 0.6;
         }
 
         .pregunta p {
@@ -304,7 +290,7 @@
             border-left: 4px solid #22c55e;
             padding: 5px 10px;
             margin-bottom: 10px;
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             color: #166534;
             border-radius: 6px;
             font-style: italic;
@@ -344,16 +330,16 @@
             margin: 0;
         }
 
-        /* ========== NAVEGACIÓN ========== */
+        /* ===== NAVEGACIÓN ===== */
         .nav-buttons {
             display: flex;
             gap: 10px;
             margin-top: 12px;
-            padding-bottom: 4px;
+            padding-bottom: 2px;
         }
 
         .nav-buttons button {
-            padding: 9px 18px;
+            padding: 9px 16px;
             border: none;
             border-radius: 30px;
             font-weight: 600;
@@ -377,7 +363,6 @@
             background: #1e4a7a;
             color: white;
             box-shadow: 0 4px 12px rgba(30, 74, 122, 0.2);
-            flex: 1;
         }
 
         .nav-buttons .btn-next:hover:not(:disabled) {
@@ -394,7 +379,6 @@
             background: #d97706;
             color: white;
             box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25);
-            flex: 1;
         }
 
         .nav-buttons .btn-calcular:hover:not(:disabled) {
@@ -406,15 +390,15 @@
             cursor: not-allowed;
         }
 
-        /* ========== RESULTADO ========== */
+        /* ===== RESULTADO ===== */
         .resultado {
             display: none;
-            margin-top: 16px;
+            margin-top: 14px;
             padding: 16px 14px;
             border-radius: 14px;
             text-align: center;
             font-weight: 600;
-            font-size: 0.92rem;
+            font-size: 0.9rem;
             border: 1px solid transparent;
         }
 
@@ -474,10 +458,10 @@
             font-weight: 400;
         }
 
-        /* ========== FOOTER APP ========== */
+        /* ===== FOOTER ===== */
         .app-footer {
             background: #f8fafc;
-            padding: 10px 18px 12px;
+            padding: 10px 16px 12px;
             border-top: 1px solid #e2e8f0;
             text-align: center;
             font-size: 0.55rem;
@@ -494,109 +478,45 @@
             color: #cbd5e1;
         }
 
-        /* ========== RESPONSIVE ========== */
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 440px) {
-            body {
-                padding: 6px;
-            }
+            body { padding: 4px; }
             .app-container {
                 border-radius: 20px;
-                min-height: 600px;
-                max-height: 98vh;
+                min-height: 580px;
+                max-height: 99vh;
             }
             .app-header {
-                padding: 14px 16px 12px;
+                padding: 12px 14px 10px;
             }
             .logo-icon {
-                width: 34px;
-                height: 34px;
-                font-size: 14px;
+                width: 36px;
+                height: 36px;
+                font-size: 13px;
             }
-            .logo-text .sip {
-                font-size: 0.9rem;
-            }
-            .logo-text .system {
-                font-size: 0.55rem;
-            }
-            .app-title {
-                font-size: 1rem;
-                padding: 2px 10px;
-            }
-            .app-title small {
-                font-size: 0.4rem;
-            }
-            .app-body {
-                padding: 12px 12px 8px;
-            }
-            .pregunta {
-                padding: 10px 10px;
-            }
-            .pregunta p {
-                font-size: 0.85rem;
-            }
-            label {
-                font-size: 0.8rem;
-                padding: 5px 10px;
-            }
-            .nav-buttons button {
-                font-size: 0.72rem;
-                padding: 7px 10px;
-            }
+            .logo-text .sip { font-size: 0.95rem; }
+            .logo-text .system { font-size: 0.5rem; }
+            .app-title { font-size: 1.1rem; padding: 2px 12px; }
+            .app-title small { font-size: 0.4rem; }
+            .app-body { padding: 10px 10px 6px; }
+            .pregunta { padding: 10px 10px; }
+            .pregunta p { font-size: 0.85rem; }
+            label { font-size: 0.8rem; padding: 5px 10px; }
+            .nav-buttons button { font-size: 0.72rem; padding: 7px 10px; }
         }
 
         @media (max-width: 360px) {
-            .app-container {
-                border-radius: 16px;
-            }
-            .app-header {
-                padding: 10px 12px 8px;
-            }
-            .logo-icon {
-                width: 28px;
-                height: 28px;
-                font-size: 11px;
-            }
-            .logo-text .sip {
-                font-size: 0.75rem;
-            }
-            .app-title {
-                font-size: 0.85rem;
-                padding: 2px 8px;
-            }
-            .app-body {
-                padding: 8px 8px 6px;
-            }
-            .pregunta p {
-                font-size: 0.8rem;
-            }
-            label {
-                font-size: 0.75rem;
-                padding: 4px 8px;
-            }
-            .idioma-selector select {
-                font-size: 0.7rem;
-                padding: 4px 8px;
-                min-width: 80px;
-            }
-            .progreso .contador {
-                font-size: 0.65rem;
-                min-width: 60px;
-            }
-            .nav-buttons button {
-                font-size: 0.65rem;
-                padding: 6px 8px;
-            }
-        }
-
-        /* ========== ANIMACIÓN DE CARGA ========== */
-        .loading-shimmer {
-            animation: shimmer 1.5s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { opacity: 0.6; }
+            .app-container { border-radius: 16px; }
+            .app-header { padding: 8px 10px 6px; }
+            .logo-icon { width: 28px; height: 28px; font-size: 10px; }
+            .logo-text .sip { font-size: 0.75rem; }
+            .app-title { font-size: 0.9rem; padding: 2px 8px; }
+            .app-body { padding: 6px 6px 4px; }
+            .pregunta p { font-size: 0.78rem; }
+            label { font-size: 0.72rem; padding: 4px 8px; }
+            .idioma-selector select { font-size: 0.7rem; padding: 4px 6px; min-width: 70px; }
+            .progreso .contador { font-size: 0.6rem; min-width: 55px; }
+            .nav-buttons button { font-size: 0.6rem; padding: 5px 6px; }
         }
     </style>
 </head>
@@ -620,7 +540,7 @@
 
     <!-- BODY -->
     <div class="app-body">
-        <!-- Selector de idioma -->
+        <!-- Idioma -->
         <div class="idioma-selector">
             <label for="idiomaSelect">🌍 Idioma:</label>
             <select id="idiomaSelect" onchange="cambiarIdioma()">
@@ -646,7 +566,7 @@
             <span class="pregunta-num" id="textoProgreso">0%</span>
         </div>
 
-        <!-- Guía de trago -->
+        <!-- Guía -->
         <div class="guia-trago" id="guiaTrago">
             <strong>🥃 Referencia:</strong> <span id="textoTrago">1 trago = 10g alcohol</span>
         </div>
@@ -675,11 +595,11 @@
 
 <script>
     // ================================================================
-    // BASE DE DATOS COMPLETA - TODAS LAS PREGUNTAS TRADUCIDAS
+    // TODAS LAS PREGUNTAS - COMPLETAS EN 5 IDIOMAS
     // ================================================================
     const idiomas = {
         es: {
-            nombre: 'Español (estándar)',
+            nombre: 'Español',
             trago: '1 trago = 10g alcohol (cerveza 330ml, vino 140ml, destilado 40ml)',
             preguntas: [
                 { texto: '¿Con qué frecuencia consume alguna bebida alcohólica?', contexto: '', opciones: ['Nunca', '1 o menos veces al mes', 'De 2 a 4 veces al mes', 'De 2 a 3 veces por semana', '4 o más veces por semana'] },
@@ -689,4 +609,17 @@
                 { texto: 'En el último año, ¿con qué frecuencia no pudo hacer lo que se esperaba de usted debido a la bebida?', contexto: '', opciones: ['Nunca', 'Menos de una vez al mes', 'Mensualmente', 'Semanalmente', 'A diario o casi a diario'] },
                 { texto: 'En el último año, ¿con qué frecuencia necesitó beber en ayunas para recuperarse después de haber bebido mucho?', contexto: '', opciones: ['Nunca', 'Menos de una vez al mes', 'Mensualmente', 'Semanalmente', 'A diario o casi a diario'] },
                 { texto: 'En el último año, ¿con qué frecuencia ha tenido remordimientos o culpa después de beber?', contexto: '', opciones: ['Nunca', 'Menos de una vez al mes', 'Mensualmente', 'Semanalmente', 'A diario o casi a diario'] },
-                { texto: 'En el último año, ¿con qué frecuencia no ha reco
+                { texto: 'En el último año, ¿con qué frecuencia no ha recordado lo que pasó porque había bebido?', contexto: '', opciones: ['Nunca', 'Menos de una vez al mes', 'Mensualmente', 'Semanalmente', 'A diario o casi a diario'] },
+                { texto: '¿Usted o alguien más ha resultado herido debido a su consumo de alcohol?', contexto: '', opciones: ['No', 'Sí, pero no en el último año', 'Sí, durante el último año'] },
+                { texto: '¿Algún familiar, amigo o médico ha mostrado preocupación por su consumo o le ha sugerido dejar de beber?', contexto: '', opciones: ['No', 'Sí, pero no en el último año', 'Sí, durante el último año'] }
+            ]
+        },
+        qu: {
+            nombre: 'Quechua',
+            trago: '1 upyana = 10g alcochol (cerveza 330ml, vino 140ml, pisco 40ml)',
+            preguntas: [
+                { texto: 'Hayk\'a kutitáq upyanki alcocholta?', contexto: 'Kay tapuyqa qanpa upyanaykita mask\'an.', opciones: ['Manam', 'Killa huk kutita', 'Killapi 2-4 kutita', 'Semana 2-3 kutita', 'Semana 4+ kutita'] },
+                { texto: 'Hayk\'a upyanatáq upyanki juk p\'unchawpi?', contexto: '', opciones: ['1-2', '3-4', '5-6', '7-9', '10+'] },
+                { texto: 'Hayk\'a kutitáq upyanki 6+ upyanata juk p\'unchawpi?', contexto: '', opciones: ['Manam', 'Killa huk kutita', 'Killapi', 'Semanapi', 'P\'unchawllapi'] },
+                { texto: 'Kay wata, hayk\'a kutitáq mana atirqankichu upyayta saqeyta?', contexto: '', opciones: ['Manam', 'Killa huk kutita', 'Killapi', 'Semanapi', 'P\'unchawllapi'] },
+                { texto: 'Kay wata, hayk\'a kutitáq mana rurarqankichu ruwanaykita upyasqaykirayku?', contexto: '', opci
