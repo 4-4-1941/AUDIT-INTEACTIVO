@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionario AUDIT - Tamizaje de Alcoholismo</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background-color: #f0f4fc;
+            color: #1e293b;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 720px;
+            width: 100%;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px 28px;
+            border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            transition: 0.2s;
+        }
+
+        h1 {
+            color: #0b3b5c;
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .sub {
+            text-align: center;
+            color: #475569;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 12px;
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            background-color: #fef9e7;
+            border-left: 6px solid #d97706;
+            padding: 16px 18px;
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+            border-radius: 10px;
+            color: #7c4a1a;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        .disclaimer strong {
+            color: #92400e;
+        }
+
+        /* Guía de trago */
+        .guia-trago {
+            background-color: #eef6ff;
+            border: 1px solid #b9d5fd;
+            padding: 16px 20px;
+            margin-bottom: 28px;
+            border-radius: 14px;
+            font-size: 0.95rem;
+            color: #0b3b5c;
+        }
+
+        .guia-trago strong {
+            color: #1e4a7a;
+        }
+
+        .guia-trago ul {
+            margin: 10px 0 0 20px;
+            list-style-type: '🍺 ';
+        }
+
+        .guia-trago ul li {
+            margin-bottom: 4px;
+            padding-left: 6px;
+        }
+
+        /* Preguntas */
+        .pregunta {
+            margin-bottom: 28px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e9edf2;
+        }
+
+        .pregunta:last-of-type {
+            border-bottom: none;
+        }
+
+        .pregunta p {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #0f2b44;
+            font-size: 1.05rem;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px;
+            margin: 4px 0;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: background 0.15s, padding-left 0.1s;
+            font-weight: 450;
+            color: #1f2a44;
+            background-color: #fafcff;
+            border: 1px solid transparent;
+        }
+
+        label:hover {
+            background-color: #e9effa;
+            border-color: #cbd9ed;
+        }
+
+        input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #2563eb;
+            flex-shrink: 0;
+            margin: 0;
+        }
+
+        /* Botón */
+        button {
+            display: block;
+            width: 100%;
+            background: #1e4a7a;
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 60px;
+            cursor: pointer;
+            margin-top: 28px;
+            transition: background 0.2s, transform 0.05s;
+            letter-spacing: 0.5px;
+            box-shadow: 0 6px 12px rgba(30, 74, 122, 0.15);
+        }
+
+        button:hover {
+            background: #14375e;
+            transform: scale(1.01);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        /* Resultado */
+        .resultado {
+            display: none;
+            margin-top: 30px;
+            padding: 22px 18px;
+            border-radius: 18px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+            border: 1px solid transparent;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+
+        .bajo-riesgo {
+            background-color: #d1fae5;
+            color: #065f46;
+            border-color: #34d399;
+        }
+
+        .riesgo-medio {
+            background-color: #ffedd5;
+            color: #9a3412;
+            border-color: #fb923c;
+        }
+
+        .riesgo-alto {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border-color: #f87171;
+        }
+
+        /* Pequeña nota final */
+        .footer-note {
+            margin-top: 18px;
+            font-size: 0.8rem;
+            color: #6b7a8f;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 18px;
+        }
+
+        /* Responsive */
+        @media (max-width: 500px) {
+            .container {
+                padding: 20px 16px;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+            label {
+                padding: 6px 10px;
+                font-size: 0.95rem;
+            }
+            .guia-trago ul {
+                margin-left: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🧪 Cuestionario AUDIT</h1>
+    <div class="sub">Test de Identificación de Trastornos por Consumo de Alcohol (OMS)</div>
+
+    <!-- Descargo de responsabilidad OBLIGATORIO -->
+    <div class="disclaimer">
+        <strong>⚕️ Aviso Legal / Descargo de Responsabilidad:</strong> Esta herramienta digitalizada es estrictamente para fines informativos y de tamizaje preventivo. Los resultados no constituyen un diagnóstico médico, psiquiátrico ni psicológico formal. Si le preocupa su consumo de alcohol, acuda a un profesional de la salud mental o a un centro asistencial.
+    </div>
+
+    <!-- Guía de trago estándar Perú -->
+    <div class="guia-trago">
+        <strong>🥃 Guía de Referencia (Perú):</strong> Considera que <strong>"1 trago estándar"</strong> equivale aproximadamente a:
+        <ul>
+            <li>1 lata o botella pequeña de cerveza (330 ml).</li>
+            <li>1 copa de vino (100 ml).</li>
+            <li>1 copa o vaso corto de pisco, ron, whisky o vodka (40 ml).</li>
+        </ul>
+    </div>
+
+    <form id="auditForm">
+        <!-- Pregunta 1 -->
+        <div class="pregunta">
+            <p>1. ¿Con qué frecuencia consume alguna bebida alcohólica?</p>
+            <label><input type="radio" name="p1" value="0" required> Nunca</label>
+            <label><input type="radio" name="p1" value="1"> 1 o menos veces al mes</label>
+            <label><input type="radio" name="p1" value="2"> De 2 a 4 veces al mes</label>
+            <label><input type="radio" name="p1" value="3"> De 2 a 3 veces por semana</label>
+            <label><input type="radio" name="p1" value="4"> 4 o más veces por semana</label>
+        </div>
+
+        <!-- Pregunta 2 -->
+        <div class="pregunta">
+            <p>2. ¿Cuántos tragos estándar suele tomar en un día de consumo normal?</p>
+            <label><input type="radio" name="p2" value="0" required> 1 o 2</label>
+            <label><input type="radio" name="p2" value="1"> 3 o 4</label>
+            <label><input type="radio" name="p2" value="2"> 5 o 6</label>
+            <label><input type="radio" name="p2" value="3"> De 7 a 9</label>
+            <label><input type="radio" name="p2" value="4"> 10 o más</label>
+        </div>
+
+        <!-- Pregunta 3 -->
+        <div class="pregunta">
+            <p>3. ¿Con qué frecuencia toma 6 o más tragos estándar en una sola ocasión?</p>
+            <label><input type="radio" name="p3" value="0" required> Nunca</label>
+            <label><input type="radio" name="p3" value="1"> Menos de una vez al mes</label>
+            <label><input type="radio" name="p3" value="2"> Mensualmente</label>
+            <label><input type="radio" name="p3" value="3"> Semanalmente</label>
+            <label><input type="radio" name="p3" value="4"> A diario o casi a diario</label>
+        </div>
+
+        <!-- Pregunta 4 -->
+        <div class="pregunta">
+            <p>4. En el transcurso del último año, ¿con qué frecuencia se dio cuenta de que no podía parar de beber una vez que había empezado?</p>
+            <label><input type="radio" name="p4" value="0" required> Nunca</label>
+            <label><input type="radio" name="p4" value="1"> Menos de una vez al mes</label>
+            <label><input type="radio" name="p4" value="2"> Mensualmente</label>
+            <label><input type="radio" name="p4" value="3"> Semanalmente</label>
+            <label><input type="radio" name="p4" value="4"> A diario o casi a diario</label>
+        </div>
+
+        <!-- Pregunta 5 -->
+        <div class="pregunta">
+            <p>5. En el transcurso del último año, ¿con qué frecuencia no pudo hacer lo que se esperaba de usted debido a la bebida?</p>
+            <label><input type="radio" name="p5" value="0" required> Nunca</label>
+            <label><input type="radio" name="p5" value="1"> Menos de una vez al mes</label>
+            <label><input type="radio" name="p5" value="2"> Mensualmente</label>
+            <label><input type="radio" name="p5" value="3"> Semanalmente</label>
+            <label><input type="radio" name="p5" value="4"> A diario o casi a diario</label>
+        </div>
+
+        <!-- Pregunta 6 -->
+        <div class="pregunta">
+            <p>6. En el transcurso del último año, ¿con qué frecuencia ha necesitado beber en ayunas para recuperarse después de haber bebido mucho el día anterior?</p>
+            <label><input type="radio" name="p6" value="0" required> Nunca</label>
+            <label><input type="radio" name="p6" value="1"> Menos de una vez al mes</label>
+            <label><input type="radio" name="p6" value="2"> Mensualmente</label>
+            <label><input type="radio" name="p6" value="3"> Semanalmente</label>
+            <label><input type="radio" name="p6" value="4"> A diario o casi a diario</label>
+        </div>
+
+        <!-- Pregunta 7 -->
+        <div class="pregunta">
+            <p>7. En el transcurso del último año, ¿con qué frecuencia ha tenido sentimientos de culpa o remordimiento después de haber bebido?</p>
+            <label><input type="radio" name="p7" value="0" required> Nunca</label>
+            <label><input type="radio" name="p7" value="1"> Menos de una vez al mes</label>
+            <label><input type="radio" name="p7" value="2"> Mensualmente</label>
+            <label><input type="radio" name="p7" value="3"> Semanalmente</label>
+            <label><input type="radio" name="p7" value="4"> A diario o casi a diario</label>
+        </div>
+
+        <!-- Pregunta 8 -->
+        <div class="pregunta">
+            <p>8. En el transcurso del último año, ¿con qué frecuencia no ha podido recordar lo que sucedió la noche anterior porque había estado bebiendo?</p>
+            <label><input type="radio" name="p8" value="0" required> Nunca</label>
+            <label><input type="radio" name="p8" value="1"> Menos de una vez al mes</label>
+            <label><input type="radio" name="p8" value="2"> Mensualmente</label>
+            <label><input type="radio" name="p8" value="3"> Semanalmente</label>
+            <label><input type="radio" name="p8" value="4"> A diario o casi a diario</label>
+        </div>
+
+        <!-- Pregunta 9 -->
+        <div class="pregunta">
+            <p>9. ¿Usted o alguna otra persona ha resultado herida debido a su consumo de alcohol?</p>
+            <label><input type="radio" name="p9" value="0" required> No</label>
+            <label><input type="radio" name="p9" value="2"> Sí, pero no en el último año</label>
+            <label><input type="radio" name="p9" value="4"> Sí, durante el último año</label>
+        </div>
+
+        <!-- Pregunta 10 -->
+        <div class="pregunta">
+            <p>10. ¿Un familiar, amigo, médico o profesional de la salud muestra preocupación por su consumo de alcohol o le ha sugerido que deje de beber?</p>
+            <label><input type="radio" name="p10" value="0" required> No</label>
+            <label><input type="radio" name="p10" value="2"> Sí, pero no en el último año</label>
+            <label><input type="radio" name="p10" value="4"> Sí, durante el último año</label>
+        </div>
+
+        <button type="button" onclick="calcularAudit()">📊 Calcular Resultado</button>
+    </form>
+
+    <div id="resultadoBox" class="resultado"></div>
+    <div class="footer-note">Cuestionario basado en la guía de la OMS · Uso preventivo</div>
+</div>
+
+<script>
+    function calcularAudit() {
+        const form = document.getElementById('auditForm');
+
+        // Validar que todas las preguntas estén respondidas
+        if (!form.checkValidity()) {
+            alert("⚠️ Por favor, responda todas las preguntas antes de calcular.");
+            return;
+        }
+
+        let puntajeTotal = 0;
+
+        // Sumar los valores seleccionados (p1 a p10)
+        for (let i = 1; i <= 10; i++) {
+            const seleccion = document.querySelector(`input[name="p${i}"]:checked`);
+            if (seleccion) {
+                puntajeTotal += parseInt(seleccion.value, 10);
+            }
+        }
+
+        const divResultado = document.getElementById('resultadoBox');
+        divResultado.style.display = 'block';
+
+        // Interpretación según puntaje AUDIT (rangos estándar)
+        let nivel = '';
+        let mensaje = '';
+
+        if (puntajeTotal >= 0 && puntajeTotal <= 7) {
+            nivel = 'bajo-riesgo';
+            mensaje = '✅ Bajo riesgo: consumo de alcohol dentro de parámetros saludables. Siga manteniendo hábitos responsables.';
+        } else if (puntajeTotal >= 8 && puntajeTotal <= 15) {
+            nivel = 'riesgo-medio';
+            mensaje = '⚠️ Riesgo medio: consumo que puede generar problemas. Se recomienda reducir el consumo y consultar con un profesional de la salud.';
+        } else if (puntajeTotal >= 16) {
+            nivel = 'riesgo-alto';
+            mensaje = '🔴 Riesgo alto: consumo muy elevado, posible dependencia al alcohol. Es fundamental buscar ayuda especializada (médico, psicólogo o centro de salud).';
+        } else {
+            // fallback
+            nivel = 'bajo-riesgo';
+            mensaje = 'Puntaje no válido, revise las respuestas.';
+        }
+
+        // Asignar clases y mostrar mensaje
+        divResultado.className = `resultado ${nivel}`;
+        divResultado.innerHTML = `<strong>Puntaje total: ${puntajeTotal}</strong><br><br>${mensaje}`;
+
+        // Desplazar suavemente hacia el resultado
+        divResultado.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // Opcional: Permitir reset visual o comportamiento adicional
+    // Se puede añadir un listener para limpiar resultado al cambiar respuestas, pero no es necesario.
+</script>
+
+</body>
+  </html>
