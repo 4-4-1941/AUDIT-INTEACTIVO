@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#0a2e44">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    
     <title>AUDIT - SIP SYSTEM</title>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
@@ -15,65 +13,41 @@
     <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="stylesheet" href="styles.css">
-    <meta property="og:title" content="AUDIT - SIP SYSTEM">
-    <meta property="og:description" content="Cuestionario de Identificación de Trastornos por Consumo de Alcohol (OMS)">
-    <meta property="og:image" content="og-image.png">
 </head>
 <body>
-
-<div class="app-container" id="app">
-    <!-- HEADER -->
+<div class="app-container">
     <header class="app-header">
         <div class="logo-sip">
-            <img src="logo-sidebar.png" alt="SIP SYSTEM" class="logo-img">
+            <img src="logo-sidebar.png" alt="SIP SYSTEM" class="logo-img" onerror="this.style.display='none'">
             <div class="logo-text">
                 <span class="sip">SIP</span>
                 <span class="system">SYSTEM</span>
             </div>
         </div>
-        <div class="app-title">
-            AUDIT
-            <small>OMS · 2001</small>
-        </div>
+        <div class="app-title">AUDIT <small>OMS · 2001</small></div>
     </header>
-
-    <!-- BODY -->
-    <main class="app-body" id="appBody">
-        <div class="disclaimer">
-            <strong>⚕️ Aviso:</strong> Tamizaje preventivo. Los resultados <strong>NO</strong> son diagnóstico médico.
-        </div>
-
+    <main class="app-body">
+        <div class="disclaimer"><strong>⚕️ Aviso:</strong> Tamizaje preventivo. Los resultados <strong>NO</strong> son diagnóstico médico.</div>
         <div class="progreso">
             <span class="contador" id="contadorPregunta">Pregunta 1/10</span>
-            <div class="barra-container">
-                <div class="barra" id="barraProgreso"></div>
-            </div>
+            <div class="barra-container"><div class="barra" id="barraProgreso"></div></div>
             <span class="pregunta-num" id="textoProgreso">0%</span>
         </div>
-
-        <div class="guia-trago">
-            <strong>🥃 Referencia:</strong> 1 trago = 10g alcohol (cerveza 330ml, vino 140ml, destilado 40ml)
-        </div>
-
+        <div class="guia-trago"><strong>🥃 Referencia:</strong> 1 trago = 10g alcohol</div>
         <div class="pregunta-container" id="preguntaContainer"></div>
-
         <div class="nav-buttons">
             <button class="btn-prev" id="btnPrev" onclick="cambiarPregunta(-1)">← Anterior</button>
             <button class="btn-next" id="btnNext" onclick="cambiarPregunta(1)">Siguiente →</button>
             <button class="btn-calcular" id="btnCalcular" onclick="calcularAudit()" style="display:none;">📊 Resultado</button>
         </div>
-
         <div id="resultadoBox" class="resultado"></div>
     </main>
-
     <footer class="app-footer">
         <strong>© 2026 SIP SYSTEM INTELLIGENCE PLATFORM</strong><br>
-        Basado en manual OMS (2001)
-        <span class="version"> · v2.0</span>
+        Basado en manual OMS (2001) <span class="version">· v2.0</span>
     </footer>
 </div>
-
 <script src="data.js"></script>
 <script src="app.js"></script>
 </body>
-            </html>
+</html>
