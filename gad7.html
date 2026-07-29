@@ -290,6 +290,71 @@
         font-weight: 400;
     }
 
+    /* ===== FORMULARIOS (LOGIN Y DATOS DEL CASO) ===== */
+    .form-caso {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .campo-form {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #0b3b5c;
+    }
+    .campo-form input, .campo-form select {
+        padding: 9px 10px;
+        border-radius: 8px;
+        border: 1.5px solid #d5dee8;
+        font-size: 0.85rem;
+        font-weight: 400;
+        color: #1f2a44;
+        background: white;
+    }
+    .campo-check {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        font-size: 0.72rem;
+        font-weight: 400;
+        color: #334155;
+        background: #f8fafc;
+        padding: 8px 10px;
+        border-radius: 8px;
+        line-height: 1.4;
+    }
+    .campo-check input { margin-top: 2px; flex-shrink: 0; }
+    .btn-form-primary {
+        padding: 10px 16px;
+        border: none;
+        border-radius: 30px;
+        background: #1e4a7a;
+        color: white;
+        font-weight: 700;
+        font-size: 0.85rem;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(30, 74, 122, 0.2);
+    }
+    .btn-form-primary:hover { background: #14375e; }
+    .form-error {
+        background: #fee2e2;
+        color: #991b1b;
+        font-size: 0.72rem;
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-weight: 600;
+    }
+    .nota-guardado {
+        margin-top: 8px;
+        font-size: 0.7rem;
+        padding: 5px 10px;
+        border-radius: 6px;
+        background: rgba(255,255,255,0.55);
+        font-weight: 600;
+    }
+
     /* ===== IMPACTO FUNCIONAL (ítem complementario, no puntúa) ===== */
     .impacto-funcional {
         margin-top: 12px;
@@ -359,33 +424,105 @@
 
         <div class="app-body">
 
-            <div class="disclaimer">
-                <strong>⚕️ Aviso:</strong> Tamizaje preventivo de síntomas de ansiedad. Los resultados <strong>NO</strong> son diagnóstico médico ni sustituyen una evaluación clínica profesional.
+            <!-- ===== PANTALLA 1: INICIO DE SESIÓN ===== -->
+            <div id="authScreen">
+                <div class="disclaimer">
+                    <strong>🔒 Acceso restringido:</strong> Inicia sesión con tu cuenta de PRE SERUMS PERÚ para aplicar el tamizaje y registrar el caso.
+                </div>
+                <div class="form-caso">
+                    <label class="campo-form">Correo electrónico
+                        <input type="email" id="authEmail" placeholder="tucorreo@ejemplo.com">
+                    </label>
+                    <label class="campo-form">Contraseña
+                        <input type="password" id="authPassword" placeholder="••••••••">
+                    </label>
+                    <div id="authError" class="form-error" style="display:none;"></div>
+                    <button class="btn-form-primary" onclick="iniciarSesion()">Iniciar sesión</button>
+                </div>
             </div>
 
-            <div class="creditos-adaptacion">
-                <strong>GAD-7</strong> (Generalized Anxiety Disorder 7-item scale) — Spitzer RL, Kroenke K, Williams JBW, Löwe B. <em>A brief measure for assessing generalized anxiety disorder: the GAD-7.</em> Arch Intern Med. 2006;166(10):1092-1097. Uso clínico y educativo de libre reproducción (Pfizer Inc.).
+            <!-- ===== PANTALLA 2: DATOS DEL CASO + CONSENTIMIENTO ===== -->
+            <div id="datosCasoScreen" style="display:none;">
+                <div class="disclaimer">
+                    <strong>📋 Datos del caso:</strong> Se registran de forma anonimizada (sin nombre) para fines clínicos y de investigación epidemiológica.
+                </div>
+                <div class="form-caso">
+                    <label class="campo-form">Sexo
+                        <select id="casoSexo">
+                            <option value="">Seleccionar...</option>
+                            <option>Masculino</option>
+                            <option>Femenino</option>
+                            <option>Otro</option>
+                            <option>Prefiere no decir</option>
+                        </select>
+                    </label>
+                    <label class="campo-form">Edad
+                        <input type="number" id="casoEdad" min="0" max="120" placeholder="Ej. 34">
+                    </label>
+                    <label class="campo-form">Estado civil
+                        <select id="casoEstadoCivil">
+                            <option value="">Seleccionar...</option>
+                            <option>Soltero/a</option>
+                            <option>Casado/a</option>
+                            <option>Conviviente</option>
+                            <option>Divorciado/a</option>
+                            <option>Viudo/a</option>
+                            <option>Separado/a</option>
+                        </select>
+                    </label>
+                    <label class="campo-form">Departamento
+                        <select id="casoDepartamento">
+                            <option value="">Seleccionar...</option>
+                            <option>Amazonas</option><option>Áncash</option><option>Apurímac</option>
+                            <option>Arequipa</option><option>Ayacucho</option><option>Cajamarca</option>
+                            <option>Callao</option><option>Cusco</option><option>Huancavelica</option>
+                            <option>Huánuco</option><option>Ica</option><option>Junín</option>
+                            <option>La Libertad</option><option>Lambayeque</option><option>Lima</option>
+                            <option>Loreto</option><option>Madre de Dios</option><option>Moquegua</option>
+                            <option>Pasco</option><option>Piura</option><option>Puno</option>
+                            <option>San Martín</option><option>Tacna</option><option>Tumbes</option>
+                            <option>Ucayali</option>
+                        </select>
+                    </label>
+                    <label class="campo-form">Provincia (opcional)
+                        <input type="text" id="casoProvincia" placeholder="Ej. Huamanga">
+                    </label>
+                    <label class="campo-check">
+                        <input type="checkbox" id="casoConsentimiento">
+                        El/la paciente ha sido informado/a sobre el propósito de este tamizaje y consiente su aplicación y registro anonimizado.
+                    </label>
+                    <div id="casoError" class="form-error" style="display:none;"></div>
+                    <button class="btn-form-primary" onclick="iniciarEvaluacion()">Comenzar evaluación →</button>
+                </div>
             </div>
 
-            <div class="progreso">
-                <span class="contador" id="contadorPregunta">Pregunta 1/7</span>
-                <div class="barra-container"><div class="barra" id="barraProgreso"></div></div>
-                <span class="pregunta-num" id="textoProgreso">0%</span>
+            <!-- ===== PANTALLA 3: TEST GAD-7 ===== -->
+            <div id="testScreen" style="display:none;">
+
+                <div class="creditos-adaptacion">
+                    <strong>GAD-7</strong> (Generalized Anxiety Disorder 7-item scale) — Spitzer RL, Kroenke K, Williams JBW, Löwe B. <em>A brief measure for assessing generalized anxiety disorder: the GAD-7.</em> Arch Intern Med. 2006;166(10):1092-1097. Uso clínico y educativo de libre reproducción (Pfizer Inc.).
+                </div>
+
+                <div class="progreso">
+                    <span class="contador" id="contadorPregunta">Pregunta 1/7</span>
+                    <div class="barra-container"><div class="barra" id="barraProgreso"></div></div>
+                    <span class="pregunta-num" id="textoProgreso">0%</span>
+                </div>
+
+                <div class="guia-trago">
+                    <strong>📋 Instrucción:</strong> <span id="textoInstruccion">Durante las últimas 2 semanas, ¿qué tan seguido le han molestado los siguientes problemas?</span>
+                </div>
+
+                <div class="pregunta-container" id="preguntaContainer"></div>
+
+                <div class="nav-buttons">
+                    <button class="btn-prev" id="btnPrev" onclick="cambiarPregunta(-1)">← Anterior</button>
+                    <button class="btn-next" id="btnNext" onclick="cambiarPregunta(1)">Siguiente →</button>
+                    <button class="btn-calcular" id="btnCalcular" onclick="calcularGad7()" style="display:none;">📊 Resultado</button>
+                </div>
+
+                <div id="resultadoBox" class="resultado"></div>
             </div>
-
-            <div class="guia-trago">
-                <strong>📋 Instrucción:</strong> <span id="textoInstruccion">Durante las últimas 2 semanas, ¿qué tan seguido le han molestado los siguientes problemas?</span>
-            </div>
-
-            <div class="pregunta-container" id="preguntaContainer"></div>
-
-            <div class="nav-buttons">
-                <button class="btn-prev" id="btnPrev" onclick="cambiarPregunta(-1)">← Anterior</button>
-                <button class="btn-next" id="btnNext" onclick="cambiarPregunta(1)">Siguiente →</button>
-                <button class="btn-calcular" id="btnCalcular" onclick="calcularGad7()" style="display:none;">📊 Resultado</button>
-            </div>
-
-            <div id="resultadoBox" class="resultado"></div>
 
         </div>
 
@@ -395,6 +532,119 @@
         </div>
     </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+    const SUPABASE_URL = 'https://xcfdhwqjudzngvlssyeg.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhjZmRod3FqdWR6bmd2bHNzeWVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ1NzI2MzIsImV4cCI6MjEwMDE0ODYzMn0.ecPJp_cv0adboEOKUIzWrwnxw5rqsL6TLRPUe6pXSJE';
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    let casoActual = null;
+
+    // ===== SESIÓN =====
+    async function verificarSesion() {
+        const { data } = await supabaseClient.auth.getSession();
+        if (data.session) {
+            mostrarPantalla('datosCasoScreen');
+        } else {
+            mostrarPantalla('authScreen');
+        }
+    }
+
+    async function iniciarSesion() {
+        const email = document.getElementById('authEmail').value.trim();
+        const password = document.getElementById('authPassword').value;
+        const errorBox = document.getElementById('authError');
+        errorBox.style.display = 'none';
+
+        if (!email || !password) {
+            errorBox.textContent = 'Ingresa correo y contraseña.';
+            errorBox.style.display = 'block';
+            return;
+        }
+
+        const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+        if (error) {
+            errorBox.textContent = '❌ ' + error.message;
+            errorBox.style.display = 'block';
+            return;
+        }
+        mostrarPantalla('datosCasoScreen');
+    }
+
+    function mostrarPantalla(id) {
+        ['authScreen', 'datosCasoScreen', 'testScreen'].forEach(s => {
+            document.getElementById(s).style.display = (s === id) ? 'block' : 'none';
+        });
+    }
+
+    // ===== DATOS DEL CASO =====
+    function iniciarEvaluacion() {
+        const sexo = document.getElementById('casoSexo').value;
+        const edad = document.getElementById('casoEdad').value;
+        const estadoCivil = document.getElementById('casoEstadoCivil').value;
+        const departamento = document.getElementById('casoDepartamento').value;
+        const provincia = document.getElementById('casoProvincia').value.trim();
+        const consentimiento = document.getElementById('casoConsentimiento').checked;
+        const errorBox = document.getElementById('casoError');
+
+        if (!sexo || !edad || !estadoCivil || !departamento) {
+            errorBox.textContent = 'Completa sexo, edad, estado civil y departamento.';
+            errorBox.style.display = 'block';
+            return;
+        }
+        if (!consentimiento) {
+            errorBox.textContent = 'Se requiere el consentimiento para continuar.';
+            errorBox.style.display = 'block';
+            return;
+        }
+        errorBox.style.display = 'none';
+
+        casoActual = { sexo, edad: parseInt(edad, 10), estadoCivil, departamento, provincia, consentimiento };
+
+        // Reinicia el test para un caso nuevo
+        respuestas = new Array(totalPreguntas).fill(null);
+        preguntaActual = 0;
+        document.getElementById('resultadoBox').className = 'resultado';
+        document.getElementById('resultadoBox').innerHTML = '';
+        cargarPreguntas();
+        mostrarPantalla('testScreen');
+    }
+
+    // ===== GUARDADO EN SUPABASE =====
+    async function guardarResultado(total, zonaTexto) {
+        const notaGuardado = document.getElementById('notaGuardado');
+        try {
+            const { error } = await supabaseClient.from('tamizajes_clinicos').insert({
+                test_tipo: 'GAD-7',
+                idioma: 'es',
+                sexo: casoActual.sexo,
+                edad: casoActual.edad,
+                estado_civil: casoActual.estadoCivil,
+                departamento: casoActual.departamento,
+                provincia: casoActual.provincia || null,
+                consentimiento: casoActual.consentimiento,
+                puntaje_total: total,
+                zona_riesgo: zonaTexto,
+                respuestas: respuestas
+            });
+            if (error) throw error;
+            if (notaGuardado) notaGuardado.innerHTML = '✅ Caso guardado en la base de datos SERUMS.';
+        } catch (e) {
+            if (notaGuardado) notaGuardado.innerHTML = '⚠️ No se pudo guardar el caso (' + e.message + '). El resultado sigue siendo válido en pantalla.';
+        }
+    }
+
+    function nuevoCaso() {
+        casoActual = null;
+        document.getElementById('casoSexo').value = '';
+        document.getElementById('casoEdad').value = '';
+        document.getElementById('casoEstadoCivil').value = '';
+        document.getElementById('casoDepartamento').value = '';
+        document.getElementById('casoProvincia').value = '';
+        document.getElementById('casoConsentimiento').checked = false;
+        mostrarPantalla('datosCasoScreen');
+    }
+</script>
 <script>
     const totalPreguntas = 7;
     let preguntaActual = 0;
@@ -503,22 +753,26 @@
         const total = respuestas.reduce((a, b) => a + b, 0);
         const divResultado = document.getElementById('resultadoBox');
 
-        let zona, mensaje, consejosExtra;
+        let zona, zonaTexto, mensaje, consejosExtra;
 
         if (total <= 4) {
             zona = 'zona-minima';
+            zonaTexto = 'Mínima';
             mensaje = '🟢 Ansiedad mínima';
             consejosExtra = `<div class="consejos"><strong>💡 Orientación:</strong><ul><li>No se identifican síntomas significativos de ansiedad</li><li>Mantenga hábitos saludables de manejo del estrés</li></ul></div>`;
         } else if (total <= 9) {
             zona = 'zona-leve';
+            zonaTexto = 'Leve';
             mensaje = '🟠 Ansiedad leve';
             consejosExtra = `<div class="consejos"><strong>💡 Orientación:</strong><ul><li>Síntomas leves de ansiedad</li><li>Considere técnicas de manejo del estrés y monitoreo</li><li>Revalúe si los síntomas persisten o aumentan</li></ul></div>`;
         } else if (total <= 14) {
             zona = 'zona-moderada';
+            zonaTexto = 'Moderada';
             mensaje = '🔴 Ansiedad moderada';
             consejosExtra = `<div class="consejos"><strong>💡 Orientación:</strong><ul><li>Síntomas moderados que ameritan evaluación clínica</li><li>Considere valoración por psicología o psiquiatría</li><li>El punto de corte ≥10 sugiere posible TAG</li></ul></div>`;
         } else {
             zona = 'zona-severa';
+            zonaTexto = 'Severa';
             mensaje = '🔴 Ansiedad severa';
             consejosExtra = `<div class="consejos"><strong>💡 Pasos a seguir:</strong><ul><li>Síntomas severos de ansiedad</li><li>Se recomienda evaluación diagnóstica formal por profesional de salud mental</li><li>No demore la búsqueda de ayuda profesional</li></ul></div>`;
         }
@@ -529,10 +783,20 @@
             <div>${mensaje}</div>
             ${consejosExtra}
             <div class="nota-corte">Spitzer et al. (2006): punto de corte ≥10 (sensibilidad 89%, especificidad 82%) para probable Trastorno de Ansiedad Generalizada. Zonas: 0-4 mínima · 5-9 leve · 10-14 moderada · 15-21 severa.</div>
+            <div id="notaGuardado" class="nota-guardado">💾 Guardando caso...</div>
         `;
 
         mostrarImpactoFuncional(divResultado);
+
+        const btnNuevo = document.createElement('button');
+        btnNuevo.className = 'btn-form-primary';
+        btnNuevo.style.marginTop = '10px';
+        btnNuevo.textContent = '➕ Registrar nuevo caso';
+        btnNuevo.onclick = nuevoCaso;
+        divResultado.appendChild(btnNuevo);
+
         divResultado.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        guardarResultado(total, zonaTexto);
     }
 
     function mostrarImpactoFuncional(container) {
@@ -560,7 +824,7 @@
         });
     }
 
-    cargarPreguntas();
+    verificarSesion();
 </script>
 </body>
 </html>
