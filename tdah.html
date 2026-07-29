@@ -20,6 +20,11 @@
         min-height: 680px; max-height: 96vh; max-height: 96dvh;
         display: flex; flex-direction: column;
     }
+    @media (min-width: 768px) {
+        .app-container { max-width: 640px; }
+        body { font-size: 1.05rem; }
+    }
+
     @media (max-width: 480px) {
         body { padding: 0; }
         .app-container { max-width: 100%; width: 100%; min-height: 100vh; min-height: 100dvh; max-height: none; border-radius: 0; box-shadow: none; }
@@ -574,6 +579,14 @@ function agregarBotonNuevoCaso(div) {
     btn.textContent = '➕ Registrar nuevo caso';
     btn.onclick = nuevoCaso;
     div.appendChild(btn);
+
+    const btnToolkit = document.createElement('button');
+    btnToolkit.className = 'btn-form-primary';
+    btnToolkit.style.marginTop = '8px';
+    btnToolkit.style.background = '#64748b';
+    btnToolkit.textContent = '🏠 Volver al Toolkit';
+    btnToolkit.onclick = () => location.href = 'toolkit.html';
+    div.appendChild(btnToolkit);
 }
 
 async function guardarResultado(testTipo, puntajeTotal, zonaTexto, detalle) {

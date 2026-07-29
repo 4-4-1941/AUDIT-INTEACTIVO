@@ -36,6 +36,11 @@
         flex-direction: column;
     }
 
+    @media (min-width: 768px) {
+        .app-container { max-width: 640px; }
+        body { font-size: 1.05rem; }
+    }
+
     @media (max-width: 480px) {
         body { padding: 0; }
         .app-container {
@@ -794,6 +799,14 @@
         btnNuevo.textContent = '➕ Registrar nuevo caso';
         btnNuevo.onclick = nuevoCaso;
         divResultado.appendChild(btnNuevo);
+
+        const btnToolkit = document.createElement('button');
+        btnToolkit.className = 'btn-form-primary';
+        btnToolkit.style.marginTop = '8px';
+        btnToolkit.style.background = '#64748b';
+        btnToolkit.textContent = '🏠 Volver al Toolkit';
+        btnToolkit.onclick = () => location.href = 'toolkit.html';
+        divResultado.appendChild(btnToolkit);
 
         divResultado.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         guardarResultado(total, zonaTexto);
