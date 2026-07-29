@@ -22,7 +22,7 @@
     }
     @media (min-width: 768px) {
         .app-container { max-width: 640px; }
-        body { font-size: 1.05rem; }
+        body { font-size: 1.21rem; }
     }
 
     @media (max-width: 480px) {
@@ -49,35 +49,35 @@
         background: #22c55e; border-radius: 50%; border: 2px solid #0a2e44;
     }
     .logo-text { color: white; line-height: 1.15; }
-    .logo-text .sip { font-weight: 700; font-size: 1.1rem; letter-spacing: 0.5px; }
-    .logo-text .system { font-weight: 300; font-size: 0.6rem; opacity: 0.75; display: block; letter-spacing: 2px; }
+    .logo-text .sip { font-weight: 700; font-size: 1.26rem; letter-spacing: 0.5px; }
+    .logo-text .system { font-weight: 300; font-size: 0.69rem; opacity: 0.75; display: block; letter-spacing: 2px; }
     .app-title {
-        color: white; font-weight: 700; font-size: 1.3rem; letter-spacing: -0.5px;
+        color: white; font-weight: 700; font-size: 1.49rem; letter-spacing: -0.5px;
         background: rgba(255,255,255,0.08); padding: 4px 14px; border-radius: 20px;
         border: 1px solid rgba(255,255,255,0.1); text-align: center;
     }
-    .app-title small { font-weight: 300; font-size: 0.42rem; opacity: 0.6; display: block; letter-spacing: 1px; }
+    .app-title small { font-weight: 300; font-size: 0.48rem; opacity: 0.6; display: block; letter-spacing: 1px; }
     .app-body { flex: 1; overflow-y: auto; padding: 14px 16px 10px; background: #f8faff; }
     .app-body::-webkit-scrollbar { width: 3px; }
     .app-body::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
     .disclaimer {
         background: #fef9e7; border-left: 4px solid #d97706; padding: 8px 12px; margin-bottom: 12px;
-        font-size: 0.7rem; border-radius: 6px; color: #7c4a1a; line-height: 1.4;
+        font-size: 0.8rem; border-radius: 6px; color: #7c4a1a; line-height: 1.4;
     }
     .disclaimer strong { color: #92400e; }
     .creditos-adaptacion {
         background: #f8f7f2; border-left: 4px solid #b08d3e; padding: 8px 12px; margin-bottom: 12px;
-        font-size: 0.62rem; border-radius: 6px; color: #4a4335; line-height: 1.5;
+        font-size: 0.71rem; border-radius: 6px; color: #4a4335; line-height: 1.5;
     }
     .creditos-adaptacion strong { color: #0b3b5c; }
     .progreso {
         display: flex; align-items: center; gap: 10px; margin-bottom: 12px; padding: 6px 12px;
         background: #f8fafc; border-radius: 10px; border: 1px solid #e2e8f0;
     }
-    .progreso .contador { font-weight: 700; color: #0b3b5c; font-size: 0.72rem; min-width: 85px; }
+    .progreso .contador { font-weight: 700; color: #0b3b5c; font-size: 0.83rem; min-width: 85px; }
     .progreso .barra-container { flex: 1; height: 6px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
     .progreso .barra { height: 100%; background: linear-gradient(90deg,#2563eb,#1e4a7a); border-radius: 10px; transition: width .4s ease; width: 0%; }
-    .progreso .pregunta-num { font-weight: 600; color: #475569; font-size: 0.68rem; min-width: 32px; text-align: right; }
+    .progreso .pregunta-num { font-weight: 600; color: #475569; font-size: 0.78rem; min-width: 32px; text-align: right; }
     .pregunta-container { min-height: 200px; }
     .pregunta {
         display: none; padding: 14px 14px; background: white; border-radius: 12px; border: 2px solid #e9edf2;
@@ -85,19 +85,19 @@
     }
     .pregunta.active { display: block; }
     @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
-    .pregunta .p-label { font-weight: 700; color: #0b3b5c; font-size: 0.68rem; margin-bottom: 2px; opacity: .6; }
-    .pregunta p { font-weight: 600; margin-bottom: 10px; color: #0f2b44; font-size: 0.88rem; line-height: 1.4; }
+    .pregunta .p-label { font-weight: 700; color: #0b3b5c; font-size: 0.78rem; margin-bottom: 2px; opacity: .6; }
+    .pregunta p { font-weight: 600; margin-bottom: 10px; color: #0f2b44; font-size: 1.01rem; line-height: 1.4; }
     label {
         display: flex; align-items: center; gap: 10px; padding: 6px 12px; margin: 3px 0; border-radius: 30px;
         cursor: pointer; transition: all .15s; font-weight: 450; color: #1f2a44; background: #fafcff;
-        border: 1.5px solid transparent; font-size: 0.82rem;
+        border: 1.5px solid transparent; font-size: 0.94rem;
     }
     label:hover { background: #e9effa; border-color: #cbd9ed; }
     label.selected { background: #dbeafe; border-color: #2563eb; }
     input[type="radio"] { width: 16px; height: 16px; accent-color: #2563eb; flex-shrink: 0; margin: 0; }
     .nav-buttons { display: flex; gap: 10px; margin-top: 12px; padding-bottom: 2px; }
     .nav-buttons button {
-        padding: 9px 16px; border: none; border-radius: 30px; font-weight: 600; font-size: 0.78rem;
+        padding: 9px 16px; border: none; border-radius: 30px; font-weight: 600; font-size: 0.9rem;
         cursor: pointer; transition: all .2s; flex: 1;
     }
     .nav-buttons .btn-prev { background: #e2e8f0; color: #1e293b; flex: 0.6; }
@@ -110,43 +110,43 @@
     .nav-buttons .btn-calcular:disabled { opacity: .4; cursor: not-allowed; }
     .resultado {
         display: none; margin-top: 14px; padding: 16px 14px; border-radius: 14px; text-align: center;
-        font-weight: 600; font-size: 0.88rem; border: 1px solid transparent;
+        font-weight: 600; font-size: 1.01rem; border: 1px solid transparent;
     }
     .resultado.show { display: block; animation: fadeIn .4s ease; }
     .zona-negativo { background: #d1fae5; color: #065f46; border-color: #34d399; }
     .zona-positivo { background: #fee2e2; color: #991b1b; border-color: #f87171; }
-    .subescalas { margin-top: 10px; text-align: left; font-size: 0.75rem; background: rgba(255,255,255,.5); padding: 8px 12px; border-radius: 8px; }
+    .subescalas { margin-top: 10px; text-align: left; font-size: 0.86rem; background: rgba(255,255,255,.5); padding: 8px 12px; border-radius: 8px; }
     .subescalas div { display: flex; justify-content: space-between; padding: 2px 0; }
-    .consejos { margin-top: 8px; padding: 8px 12px; background: rgba(255,255,255,.5); border-radius: 8px; font-size: 0.73rem; text-align: left; font-weight: 400; }
+    .consejos { margin-top: 8px; padding: 8px 12px; background: rgba(255,255,255,.5); border-radius: 8px; font-size: 0.84rem; text-align: left; font-weight: 400; }
     .consejos ul { margin: 3px 0 0 16px; }
-    .nota-corte { margin-top: 8px; font-size: 0.62rem; background: rgba(255,255,255,.4); padding: 4px 8px; border-radius: 6px; font-weight: 400; }
+    .nota-corte { margin-top: 8px; font-size: 0.71rem; background: rgba(255,255,255,.4); padding: 4px 8px; border-radius: 6px; font-weight: 400; }
     .form-caso { display: flex; flex-direction: column; gap: 10px; }
-    .campo-form { display: flex; flex-direction: column; gap: 4px; font-size: 0.75rem; font-weight: 600; color: #0b3b5c; }
+    .campo-form { display: flex; flex-direction: column; gap: 4px; font-size: 0.86rem; font-weight: 600; color: #0b3b5c; }
     .campo-form input, .campo-form select {
-        padding: 9px 10px; border-radius: 8px; border: 1.5px solid #d5dee8; font-size: 0.85rem;
+        padding: 9px 10px; border-radius: 8px; border: 1.5px solid #d5dee8; font-size: 0.98rem;
         font-weight: 400; color: #1f2a44; background: white;
     }
     .campo-check {
-        display: flex; align-items: flex-start; gap: 8px; font-size: 0.72rem; font-weight: 400;
+        display: flex; align-items: flex-start; gap: 8px; font-size: 0.83rem; font-weight: 400;
         color: #334155; background: #f8fafc; padding: 8px 10px; border-radius: 8px; line-height: 1.4;
     }
     .campo-check input { margin-top: 2px; flex-shrink: 0; }
     .btn-form-primary {
         padding: 10px 16px; border: none; border-radius: 30px; background: #1e4a7a; color: white;
-        font-weight: 700; font-size: 0.85rem; cursor: pointer; box-shadow: 0 4px 12px rgba(30,74,122,.2);
+        font-weight: 700; font-size: 0.98rem; cursor: pointer; box-shadow: 0 4px 12px rgba(30,74,122,.2);
     }
     .btn-form-primary:hover { background: #14375e; }
-    .form-error { background: #fee2e2; color: #991b1b; font-size: 0.72rem; padding: 6px 10px; border-radius: 6px; font-weight: 600; }
-    .nota-guardado { margin-top: 8px; font-size: 0.68rem; padding: 5px 10px; border-radius: 6px; background: rgba(255,255,255,.55); font-weight: 600; }
+    .form-error { background: #fee2e2; color: #991b1b; font-size: 0.83rem; padding: 6px 10px; border-radius: 6px; font-weight: 600; }
+    .nota-guardado { margin-top: 8px; font-size: 0.78rem; padding: 5px 10px; border-radius: 6px; background: rgba(255,255,255,.55); font-weight: 600; }
     .tool-card {
         background: white; border: 2px solid #e9edf2; border-radius: 14px; padding: 14px; margin-bottom: 12px;
         cursor: pointer; transition: all .15s;
     }
     .tool-card:hover { border-color: #2563eb; box-shadow: 0 4px 14px rgba(37,99,235,.12); }
-    .tool-card .badge-tool { font-size: 0.65rem; font-weight: 700; color: #1e4a7a; background: #eef6ff; padding: 3px 10px; border-radius: 20px; display: inline-block; margin-bottom: 6px; }
-    .tool-card h3 { font-size: 0.95rem; color: #0f2b44; margin-bottom: 4px; }
-    .tool-card p { font-size: 0.75rem; color: #5B6E6A; font-weight: 400; line-height: 1.4; margin: 0; }
-    .app-footer { background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 8px 16px; text-align: center; font-size: 0.6rem; color: #94a3b8; flex-shrink: 0; }
+    .tool-card .badge-tool { font-size: 0.75rem; font-weight: 700; color: #1e4a7a; background: #eef6ff; padding: 3px 10px; border-radius: 20px; display: inline-block; margin-bottom: 6px; }
+    .tool-card h3 { font-size: 1.09rem; color: #0f2b44; margin-bottom: 4px; }
+    .tool-card p { font-size: 0.86rem; color: #5B6E6A; font-weight: 400; line-height: 1.4; margin: 0; }
+    .app-footer { background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 8px 16px; text-align: center; font-size: 0.69rem; color: #94a3b8; flex-shrink: 0; }
 </style>
 </head>
 <body>
@@ -478,7 +478,7 @@ function calcularASRS() {
     const div = document.getElementById('resultadoBox');
     div.className = `resultado show ${positivo ? 'zona-positivo' : 'zona-negativo'}`;
     div.innerHTML = `
-        <div style="font-size:1.5rem;margin-bottom:4px;">Parte A: ${shadedA}/6</div>
+        <div style="font-size: 1.72rem;margin-bottom:4px;">Parte A: ${shadedA}/6</div>
         <div>${positivo ? '🔴 Cribado positivo — síntomas altamente consistentes con TDAH adulto' : '🟢 Cribado negativo'}</div>
         <div class="subescalas">
             <div><span>Ítems sombreados (Inatención)</span><strong>${iaCount}/9</strong></div>
@@ -524,7 +524,7 @@ function calcularVanderbilt() {
     const div = document.getElementById('resultadoBox');
     div.className = `resultado show ${algunoPositivo ? 'zona-positivo' : 'zona-negativo'}`;
     div.innerHTML = `
-        <div style="font-size:1.3rem;margin-bottom:4px;">${algunoPositivo ? '🔴 Cribado positivo' : '🟢 Cribado negativo'}</div>
+        <div style="font-size: 1.49rem;margin-bottom:4px;">${algunoPositivo ? '🔴 Cribado positivo' : '🟢 Cribado negativo'}</div>
         <div>TDAH: ${(iaPositivo||hiPositivo) ? tipoTDAH : 'No cumple criterio de tamizaje'}</div>
         <div class="subescalas">
             <div><span>Inatención (≥6/9 + desempeño)</span><strong>${iaCount}/9 ${iaPositivo?'✓':''}</strong></div>
@@ -557,7 +557,7 @@ function calcularSNAP() {
     const div = document.getElementById('resultadoBox');
     div.className = `resultado show ${algunoPositivo ? 'zona-positivo' : 'zona-negativo'}`;
     div.innerHTML = `
-        <div style="font-size:1.3rem;margin-bottom:4px;">${algunoPositivo ? '🔴 Cribado positivo' : '🟢 Cribado negativo'}</div>
+        <div style="font-size: 1.49rem;margin-bottom:4px;">${algunoPositivo ? '🔴 Cribado positivo' : '🟢 Cribado negativo'}</div>
         <div>TDAH: ${algunoPositivo ? tipoTDAH : 'No cumple criterio de tamizaje'}</div>
         <div class="subescalas">
             <div><span>Inatención (≥6/9 "Bastante/Muchísimo")</span><strong>${iaCount}/9 ${iaPositivo?'✓':''}</strong></div>
