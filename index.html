@@ -723,6 +723,17 @@
                     </select>
                 </label>
                 <label class="campo-form">Provincia (opcional)<input type="text" id="casoProvincia" placeholder="Ej. Huamanga"></label>
+                <div class="campo-form">
+                    Tipo de evaluación
+                    <label class="campo-check" style="margin-bottom:2px;">
+                        <input type="radio" name="modoTestRadio" value="completo" checked>
+                        <strong>AUDIT completo</strong> — 10 preguntas
+                    </label>
+                    <label class="campo-check">
+                        <input type="radio" name="modoTestRadio" value="auditc">
+                        <strong>AUDIT-C</strong> — tamizaje rápido, 3 preguntas (puede continuar al AUDIT completo si sale positivo)
+                    </label>
+                </div>
                 <label class="campo-check">
                     <input type="checkbox" id="casoConsentimiento">
                     El/la paciente ha sido informado/a sobre el propósito de este tamizaje y consiente su aplicación y registro anonimizado.
@@ -909,7 +920,8 @@
     // ================================================================
     let idiomaActual = 'es';
     let preguntaActual = 0;
-    const totalPreguntas = 10;
+    let totalPreguntas = 10;
+    let modoTest = 'completo'; // 'completo' (10 ítems) | 'auditc' (3 ítems, tamizaje rápido)
     let respuestas = new Array(totalPreguntas).fill(null);
     let subRespuestas = {}; // { idx: [valA, valB] } para preguntas desdobladas (ej. Ítem 2A/2B Quechua)
 
@@ -922,7 +934,7 @@
         const data = idiomas[idiomaActual];
         container.innerHTML = '';
 
-        data.preguntas.forEach((p, idx) => {
+        data.preguntas.slice(0, totalPreguntas).forEach((p, idx) => {
             const div = document.createElement('div');
             div.className = 'pregunta' + (idx === 0 ? ' active' : '');
             div.id = `pregunta-${idx}`;
@@ -1093,6 +1105,62 @@
         const divResultado = document.getElementById('resultadoBox');
         divResultado.style.display = 'block';
 
+        // ===== RAMA AUDIT-C (3 preguntas, tamizaje rápido) =====
+        if (modoTest === 'auditc') {
+            const esMujer = casoActual.sexo === 'Femenino';
+            const corte = esMujer ? 3 : 4;
+            const positivo = puntajeTotal >= corte;
+            const notaSexo = (casoActual.sexo === 'Masculino' || casoActual.sexo === 'Femenino')
+                ? ''
+                : ' (se aplicó el corte de referencia general ≥4; no existe corte validado específico para esta categoría de sexo)';
+
+            const nivel = positivo ? 'dependencia' : 'bajo-riesgo';
+            const mensaje = positivo ? '🔴 AUDIT-C positivo — riesgo elevado' : '✅ AUDIT-C negativo';
+            const consejosExtra = positivo
+                ? `<div class="consejos"><strong>💡 Pasos a seguir:</strong><ul><li>Se recomienda continuar con el AUDIT completo (7 preguntas restantes) para precisar la zona de riesgo</li><li>Considere consejo breve mientras completa la evaluación</li></ul></div>`
+                : `<div class="consejos"><strong>💡 Orientación:</strong><ul><li>No se identifica riesgo elevado con este tamizaje corto</li><li>Puede aplicar el AUDIT completo si desea mayor precisión clínica</li></ul></div>`;
+
+            divResultado.className = `resultado show ${nivel}`;
+            divResultado.innerHTML = `
+                <div style="font-size: 1.26rem; margin-bottom:4px;">${mensaje}</div>
+                <div style="font-size: 1.09rem; margin-bottom:6px;"><strong>Puntaje: ${puntajeTotal} / 12</strong></div>
+                ${consejosExtra}
+                <div class="nota-corte">📌 Corte MINSA/OMS AUDIT-C: mujeres ≥3, hombres ≥4${notaSexo}</div>
+                <div style="margin-top:8px; font-size: 0.75rem; font-weight:400; color:#64748b; border-top:1px solid #e2e8f0; padding-top:6px;">AUDIT-C = primeras 3 preguntas del Manual AUDIT OMS (2001) · © SIP SYSTEM</div>
+                <div id="notaGuardado" class="nota-guardado">💾 Guardando caso...</div>
+            `;
+
+            if (positivo) {
+                const btnContinuar = document.createElement('button');
+                btnContinuar.className = 'btn-form-primary';
+                btnContinuar.style.marginTop = '10px';
+                btnContinuar.textContent = '➡️ Continuar con las 7 preguntas restantes';
+                btnContinuar.onclick = continuarAuditCompleto;
+                divResultado.appendChild(btnContinuar);
+            }
+
+            const btnNuevo = document.createElement('button');
+            btnNuevo.className = 'btn-form-primary';
+            btnNuevo.style.marginTop = '8px';
+            btnNuevo.style.background = '#64748b';
+            btnNuevo.textContent = '➕ Registrar nuevo caso';
+            btnNuevo.onclick = nuevoCaso;
+            divResultado.appendChild(btnNuevo);
+
+            const btnToolkit = document.createElement('button');
+            btnToolkit.className = 'btn-form-primary';
+            btnToolkit.style.marginTop = '8px';
+            btnToolkit.style.background = '#64748b';
+            btnToolkit.textContent = '🏠 Volver al Toolkit';
+            btnToolkit.onclick = () => location.href = 'toolkit.html';
+            divResultado.appendChild(btnToolkit);
+
+            divResultado.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            guardarResultado(puntajeTotal, positivo ? 'AUDIT-C positivo' : 'AUDIT-C negativo');
+            return;
+        }
+
+        // ===== RAMA AUDIT COMPLETO (10 preguntas) =====
         let nivel, zona, mensaje, intervencion, consejosExtra;
 
         if (puntajeTotal <= 7) {
@@ -1149,6 +1217,28 @@
 
         divResultado.scrollIntoView({ behavior: 'smooth', block: 'center' });
         guardarResultado(puntajeTotal, `${mensaje} (${zona})`);
+    }
+
+    // Continúa del AUDIT-C (3 preguntas) al AUDIT completo (10 preguntas), conservando lo ya respondido.
+    function continuarAuditCompleto() {
+        modoTest = 'completo';
+        totalPreguntas = 10;
+        respuestas = respuestas.concat(new Array(10 - respuestas.length).fill(null));
+        preguntaActual = 3;
+
+        const divResultado = document.getElementById('resultadoBox');
+        divResultado.className = 'resultado';
+        divResultado.innerHTML = '';
+        divResultado.style.display = 'none';
+
+        cargarPreguntas();
+        document.querySelectorAll('.pregunta').forEach(p => p.classList.remove('active'));
+        const siguiente = document.getElementById(`pregunta-${preguntaActual}`);
+        if (siguiente) siguiente.classList.add('active');
+
+        actualizarProgreso();
+        actualizarBotones();
+        if (siguiente) siguiente.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
     // ===== SUPABASE: LOGIN, DATOS DEL CASO Y GUARDADO =====
@@ -1211,6 +1301,9 @@
 
         casoActual = { sexo, edad: parseInt(edad, 10), estadoCivil, departamento, provincia, consentimiento };
 
+        modoTest = document.querySelector('input[name="modoTestRadio"]:checked').value;
+        totalPreguntas = (modoTest === 'auditc') ? 3 : 10;
+
         respuestas = new Array(totalPreguntas).fill(null);
         subRespuestas = {};
         preguntaActual = 0;
@@ -1224,7 +1317,7 @@
         const notaGuardado = document.getElementById('notaGuardado');
         try {
             const { error } = await supabaseClient.from('tamizajes_clinicos').insert({
-                test_tipo: 'AUDIT',
+                test_tipo: modoTest === 'auditc' ? 'AUDIT-C' : 'AUDIT',
                 idioma: idiomaActual,
                 sexo: casoActual.sexo,
                 edad: casoActual.edad,
@@ -1251,6 +1344,10 @@
         document.getElementById('casoDepartamento').value = '';
         document.getElementById('casoProvincia').value = '';
         document.getElementById('casoConsentimiento').checked = false;
+        const radioCompleto = document.querySelector('input[name="modoTestRadio"][value="completo"]');
+        if (radioCompleto) radioCompleto.checked = true;
+        modoTest = 'completo';
+        totalPreguntas = 10;
         mostrarPantalla('datosCasoScreen');
     }
 
