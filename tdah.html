@@ -587,6 +587,14 @@ function agregarBotonNuevoCaso(div) {
     btnToolkit.textContent = '🏠 Volver al Toolkit';
     btnToolkit.onclick = () => location.href = 'toolkit.html';
     div.appendChild(btnToolkit);
+
+    const btnTablero = document.createElement('button');
+    btnTablero.className = 'btn-form-primary';
+    btnTablero.style.marginTop = '8px';
+    btnTablero.style.background = '#0f2b44';
+    btnTablero.textContent = '📊 Volver al Tablero SERUMS';
+    btnTablero.onclick = () => location.href = 'https://4-4-1941.github.io/SERUM-APP/';
+    div.appendChild(btnTablero);
 }
 
 async function guardarResultado(testTipo, puntajeTotal, zonaTexto, detalle) {
